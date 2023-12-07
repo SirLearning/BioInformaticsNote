@@ -104,281 +104,94 @@ BGISEQ-50：一款更专注、更小巧、更精简的高通量测序平台
 
 - 该系统沿用了先进的联合探针锚定聚合技术（cPAS）和DNA纳米球（DNB）核心测序技术，内置独立的样本加载试剂槽和全自动试剂针穿刺系统。BGISEQ-50体积小巧，易于安放，不仅全面支持临床领域和科研领域的基础测序应用项目，而且适用范围广泛，突破空间限制，即使在高海拔下的低气压环境中也能正常运行
 
-# 算法
-
-- 局部优化比对（Local）: Smith-Waterman
-
-  EMBOSS Water, https://www.ebi.ac.uk/Tools/psa/emboss_water/
-
-  - 运用实例
-
-    
-
-    可采取线性罚分：gap=12
-
-    - Smith-Waterman算法
-
-      
-
-      时间复杂度O(n^2)
-
-      - 递归结果
-
-        
-
-        - 回溯
-
-          
-
-          - 比对结果/打分![img](https://api2.mubu.com/v3/document_image/270e5004-8944-46b2-8f99-fb17ab398bb6-12251550.jpg)![img](https://api2.mubu.com/v3/document_image/eb73afb2-8c32-44c3-8834-4aed26752222-12251550.jpg)
-            Smith-waterman算法打分：9分
-            直接打分：-4+2+4-12+9-1=-2
-
-- 打分模型
-
-  - 替代矩阵
-
-    字符相同：identity
-    字符替代：similarity，相似性，氨基酸/碱基之间的替代和突变
-
-    - 似然性值
-
-      - 对于不相关或者随机的模型R，两条序列匹配的概率：![img](https://api2.mubu.com/v3/document_image/ba276dde-9ba7-4d60-a8e7-4e4d5d9052d1-12251550.jpg)
-        建立模型：
-        ​考虑长度为n的序列x和长度为m的序列y
-        令xi为x序列中的第i位；yj为y序列中的第j位
-        假设xi出现的频率为qxi, yj出现的频率为qyj
-
-      - 对于另择假设/匹配模型M，两个字符匹配的概率为连接概率pab：![img](https://api2.mubu.com/v3/document_image/5f7d5a1f-975f-4e7c-bee2-c087425cbfca-12251550.jpg)
-
-    - 几率值（odds ratio）
-
-      
-
-      两个似然性值之间的比值
-
-      - 对数几率值（log odds ratio）![img](https://api2.mubu.com/v3/document_image/99ea6286-0d14-4d5a-948b-d56633947eb0-12251550.jpg)![img](https://api2.mubu.com/v3/document_image/bd023dfe-853f-47e4-bfb8-7d15e28dcc89-12251550.jpg)
-        连乘->连加
-
-    - BLOSUM62![img](https://api2.mubu.com/v3/document_image/257a5234-8d0e-40d1-83f1-c219d6a4ee5e-12251550.jpg)
-      空位罚分：11
-      延伸的空位罚分：1 (BLAST工具)
-      观测数据库得到
-
-  - 插入和缺失
-
-  - 空位罚分
-
-    - 线性罚分：![img](https://api2.mubu.com/v3/document_image/9919395f-afd7-43df-9bfb-86bec4a8d9a5-12251550.jpg)
-      d, 每次罚分的分数；g，空位数
-
-    - 修正的罚分：![img](https://api2.mubu.com/v3/document_image/da06a978-5a54-4127-9eee-d8f7524db3af-12251550.jpg)
-      d, 第一次罚分的分数；g，空位数；e, 修正后的参数
-
-  - 打分矩阵
-
-    - Dayhoff: PAM系列矩阵
-
-      Accepted point mutation (PAM): 可接受的点突变，氨基酸的改变不显著影响蛋白质的功能
-
-      - 进化模型：
-        基本假设：中性进化，Kimura, 1968
-        进化的对成性: A->B = B->A
-        扩展性：通过对较短时间内氨基酸替代关系的计算来计算较长时间的氨基酸替代关系
-
-      - PAM1矩阵的构建
-
-        
-
-        两个蛋白质序列的~1%氨基酸发生变化
-        定义进化时间以氨基酸的变异比例为准，而不是时间：各个蛋白质家族进化的速度并不相等
-
-        - 流程
-
-          - 序列数据集
-
-            
-
-            34个蛋白质超家族
-            71个蛋白质分组
-            15,720个突变
-            序列相似性> 85%
-
-            - 统计不同氨基酸之间的替代
-
-              
-
-              15,720
-
-              - 计算氨基酸出现概率
-
-                
-
-                蛋白质序列数据库中20种氨基酸的出现频率
-
-                - 计算 相对突变能力（relative mutability, ma）
-
-                  
-
-                  
-
-                  例如，对于A，突变数3644，则
-                  mA= 3644/(1000.08715720) = 0.0266
-                  对于R，突变数为1191，则
-                  mR=1191/(1000.04115720) = 0.0173
-                  对于F，突变数为682，则
-                  mF=682/(1000.0415720) = 0.0108
-                  对于Y，突变数512，则
-                  mY=512/(1000.0315720) = 0.0108
-                  令mA=100，则mR=~65，mF=~41，mY=~41
-
-                  - ~1%氨基酸突变
-
-                    Maa反映a没有突变成其他氨基酸的能力
-                    Maa= 1 –ΣMab
-                    问题：
-                    ΣMab可能会>>1%，使用λ，使得λΣMab约为1%，Maa约为99%
-                    PAM1矩阵：
-                    Maa= 1 –λΣMab =~ 99%
-
-                    - 计算a->b的相对概率
-
-                      Pa= 氨基酸a出现的概率
-                      fab = a->b替代的总数
-                      fa（所有与a相关的氨基酸替代数）= Σfab(a不等于b)
-                      f = Σfa
-                      定义：相对概率M’ab，
-                      M’ab= Pr(a->b)=fab/fa
-
-                      - λ的计算
-
-                        
-
-                        20种氨基酸，突变总数1%
-                        200,000个氨基酸，突变总数2,000
-                        λ= 2000/1468=~1.36
-
-                        - 连接概率
-
-                          
-
-                          - 结果![img](https://api2.mubu.com/v3/document_image/2e96933b-503c-49ef-a7dc-292155d2cc5b-12251550.jpg)![img](https://api2.mubu.com/v3/document_image/a83894b8-b123-4b01-8a3b-8fa23942a467-12251550.jpg)
-
-        - DNA打分矩阵PAM1的构建
-
-          
-
-          假设DNA四种碱基概率为：
-          PA=PT=0.3, PC=PG=0.2
-          若干序列比较发现1000个碱基替代
-          f=1000
-          fA= 550, fT=550, fC=350, fG=550
-          相对突变能力：
-          mA= 0.0183, mT=0.0183, mC=0.0175, mG=0.0275
-
-          - 相对突变能力
-
-            
-
-            - PAM1
-
-              
-
-              总数40000个碱基，400个突变
-              λ(mA+mT+mC+mG)=400
-              λmA=λmT=90, λmC=85, λmG=135
-              因此
-              λmAC=16, λmAG=33, λmAT=41
-              λmCA=24, λmCG=37, λmCT=24
-              λmGA=49, λmGC=37, λmGT=49
-              λmTA=41, λmTC=16, λmTG=33
-              ​
-
-              - PAM2矩阵
-
-                
-
-                基本假设：每个氨基酸的突变的概率独立于前次突变。因此，PAM2=PAM1*PAM1
-
-                - PAM250矩阵![img](https://api2.mubu.com/v3/document_image/a170ea70-c4d5-4f28-a6c6-bb3dc4d61625-12251550.jpg)![img](https://api2.mubu.com/v3/document_image/91810426-24ff-41c4-9160-e426358875d7-12251550.jpg)
-                  有250%的期望的突变
-                  ​
-                  蛋白质序列仍然有15-30%左右的相似性，例如：
-
-                - 当前使用的PAM250矩阵![img](https://api2.mubu.com/v3/document_image/50e63ae1-dc46-4962-96b1-77b8f8fae31a-12251550.jpg)
-
-                - 打分矩阵的使用![img](https://api2.mubu.com/v3/document_image/2ef732d5-687e-4793-9d01-b657e0d6ff87-12251550.jpg)
-                  PAM250: ~15-30%的序列相似性
-                  PAM120: ~40%的序列相似性
-                  PAM80: ~50%
-                  PAM60: ~60%
-                  如何选择最合适的矩阵？
-                  遍历尝试…
-
-      - PAM系列矩阵的构建思想
-        - 替代矩阵思想![img](https://api2.mubu.com/v3/document_image/cee16003-7d88-4bf7-b439-ea91ecce7136-12251550.jpg)
-
-      - PAM250的计算
-
-        
-
-        相关比率值 Rab：通过进化形成的关联的两条蛋白质序列上的两个氨基酸有关联的几率 vs. 随机的两条蛋白质序列上，两个氨基酸有关联的几率
-        Mab= 相关的蛋白质序列上a替换成b的概率
-
-        - 因此
-
-          
-
-          - 结果![img](https://api2.mubu.com/v3/document_image/9dae43d6-e0ad-43a5-ae4c-0728a05550f3-12251550.jpg)
-
-      - PAM系列矩阵的问题
-
-        氨基酸的打分矩阵，不关心核酸
-        进化模型的构建需要系统发育树的分析，因此，成为一个循环论证的问题：序列比对->矩阵构建->打分，进行新的序列比对
-        数据集很小
-
-        - 改进
-          选用大量的序列数据，构建矩阵（JTT矩阵）
-          BLOSUM系列矩阵
-          核酸的打分矩阵
-
-    - Henikoff: BLOSUM系列矩阵
-
-      最被广泛使用的氨基酸打分矩阵系列
-
-      - 术语名词
-
-        - BLOCK: 
-          蛋白质家族保守的一段氨基酸，无gap，一般几个~上百个氨基酸
-
-        - Prosite家族：
-          至少有一个BLOCK存在于该家族的所有蛋白质序列中
-
-        - BLOSUM62: 
-          序列的平均相似性为62%的BLOCK构建的打分矩阵
-
-      - 利用”Block” (模块) 计算矩阵
-
-        
-
-        ~500组相似的蛋白质
-        ~2,000个Blocks
-
-        - 计算方法
-
-          - 一列数据
-
-            
-
-            - 相对熵（Relative entropy）![img](https://api2.mubu.com/v3/document_image/4de35b1f-7d06-4b79-a753-d29ee56e0816-12251550.jpg)
-
-            - 期望值（Expected Score）![img](https://api2.mubu.com/v3/document_image/0ba13258-157b-4a7f-ac82-ec226017763f-12251550.jpg)
-
-          - 多列数据![img](https://api2.mubu.com/v3/document_image/cc9be9fa-95fa-44bb-9ea8-5bd00f47c41f-12251550.jpg)![img](https://api2.mubu.com/v3/document_image/8398a9b7-a5eb-4da4-a83d-af539e052b8e-12251550.jpg)
-
-      - BLOSUM62![img](https://api2.mubu.com/v3/document_image/b6faadf1-6aaa-408a-af0a-c158d25d01ea-12251550.jpg)
-        常用氨基酸打分矩阵
-        lod 指数
-
-    - BLOSUM vs. PAM![img](https://api2.mubu.com/v3/document_image/6d1df28e-8a07-4fc5-aecf-d036fde5217d-12251550.jpg)
-      BLOSUM系列比PAM系列好
+# Next generation sequencing (NGS)
+
+## Next generation sequencing (NGS)
+
+二代测序 technologies:
+
+- 454
+- SOLID
+- Illumina
+	- HiSeq
+
+sequencing steps/pipeline:
+
+1. library preparation
+	- 加DNA – 碎片化 – 加接头end repair & adaptor ligation (连接复制) – 碎片库
+2. library amplification 碎片与板子上特定位点的吸附 – 连接 – 合成, 延伸(束状生长)
+3. parallel sequencing 
+4. data analysis
+
+Illunina data processing
+
+1. nucleotide flows – raw images
+2. image processing – base-calling – quality filtering – .bcl
+3. 质控(截掉质量值不好的测序结果) – Illumina fastq
+
+应用：
+
+- 基因组学(genomics):
+	- 全基因组测序 whole genome sequencing(WGS)
+	- 全外显子测序 whole exome sequencing(WES)
+	- 数据分析：
+		- 点突变/插入缺失标记/复制数变异/结构变异
+- 转录组学(transcriptomics):
+	- RNA测序
+		- 原理：
+			- 大型平行测序
+			- complementary DNA(cDNA) – next-generation short read technologies
+			- reference genome – transcriptome map
+		- 流程：
+			1. 实验设计
+				- 分组(control和实验组)
+				- 物种(organism): novel/non-model/genome-sequenced/model
+			2. 样品准备
+				1. 提取poly-A RNAs
+					- polyA selection
+					- rRNA depletion – ribozero/ribominus
+				2. 转换成ds-cDNA and shearing
+				3. 亲和吸附 – adapter连接
+			3. 测序：
+				- single end (SET)
+				- paired end (PET)
+			4. data quality control
+			5. RNA-seq reads – 数据分析
+				- mapping reads – reference genome
+				- visualization(Gbrowser)
+				- de novo assembly
+				- quantification
+			6. differential expression analysis – reference transcriptome
+		- 结果：
+			- 基因/转录/外显子表达，选择性剪切，基因融合，单核苷酸变异
+			- 新的转录区域，Allele-specific expression，RNA编辑，非模式生物的转录组
+		- 优势：
+			- 不需要已存在的序列 – reads很清晰 – 分辨率高 – 高生产量 – 可以揭示序列变异(SNPs)
+	- sRNA(small RNA)测序
+	- 数据分析：
+		- 表达差异化/基因融合/选择性剪切/RNA编辑
+		- RNA测序分析：
+			- RNA types
+			- phenotypes
+			- transcriptome
+				- gene structure
+				- 选择性剪切(alternative splicing)
+	- evolution:
+		1. gene expression profiling – spotted cDNA microarray – 已知基因的表达水平
+		2. whole genome expression profiling – tiling array – 辨识和检测新基因和剪切变异体
+		3. mRNA测序 – NGS – mRNA-seq
+- 表观遗传学(epigenomics):
+	- ChIP-seq/ChIP-exo
+	- CLIP-seq
+	- Bisulfite-seq
+	- 数据分析：
+		- 甲基化/组蛋白修饰/转录因子结合
+- single cell sequencing (sc) 单细胞测序
+
+RNA-Seq
+
+FastQC – quality
+
+dup
+
+## Transcriptome and RNA-seq analysis

@@ -1,3 +1,800 @@
+k-mer来评估基因组特征，即作为一种Marker
+# 测序分析
+
+## Genome assembly and annotation
+
+3D genome	
+
+- 有些基因一维离的远，三维离的近
+- HiC-seq
+	- HiC作用：
+
+## Exome-Seq
+
+家系遗传病
+
+成本较低，数据量少很多
+
+生物芯片 – 外显子芯片 – 富集外显子
+
+- 系统生物学
+- 多个探针加到一个片子上，用荧光等来检测
+
+## ChIP-seq
+
+核小体
+
+实验流程
+
+- formaldehyde
+- sonication – shear
+- antibody
+- cross-links reversed
+- build library – sequencing
+	- 找到相关位置 – 两端测序
+
+data analysis workflow:
+
+- quality control – fasta, fastq
+	- FastQC
+- read mapping – sam, bam
+	- Bowtie
+	- BWA
+- peaks calling – bed, wig, bigwig
+	- 双峰，中间的
+	- MACS2
+	- SPP
+- visualization
+	- IGV
+- repetitive regions
+- annotation
+	- ChIPpeakAnno – R包
+	- ChIPseeqer
+	- CEAS
+	- GREAT
+	- RegProtential
+	- motif scan/MDSeqpos/meme
+
+测序片段比较短
+
+## ATAC-seq
+
+assay for transposase accessible chromatin, DNA转座酶、高通量测序、染色体的可进入性
+
+利用转座酶研究染色质可及性的高通量测序技术
+
+表观遗传学研究技术
+
+# 组学分析
+
+## 基因组分析
+
+组学 > 基因组
+
+- 基因组内容
+
+  - 基因组结构
+
+    
+
+    Promoter Exon intron
+    ORF (Open Reading Frame): 从AUG（起始密码子）开始，至stop codon终止
+    Codon Usage: CAI
+
+    - 基因组大小
+
+      - 基因组测序
+        鸟枪法
+
+      - 基因组拼装
+
+        
+
+        - 重复序列带来干扰
+
+    - 基因数
+
+      - 生物复杂性
+
+        蛋白质组的多样性和复杂性
+        1.转录后层面，mRNA剪切，拼接异构体
+        2.蛋白质层面，蛋白质序列上一个或多个位点上发生翻译后修饰
+
+        - 基因型到表型
+
+      - 基因预测
+
+        - 直接（序列高度匹配）
+          同一或近缘物种中，与EST，cDNA, 蛋白质等序列完美或近似完美的匹配
+
+        - 间接（基于统计学）
+
+          1.序列比对(Homology)
+          2.从头预测(ab initio)
+
+          - HMM model![img](https://api2.mubu.com/v3/document_image/a46f70ad-6cbe-4fb8-ba8f-891c7db9de24-12251550.jpg)
+            GENIE数据集
+
+          - 可变剪切预测
+            将EST, cDNA序列比对到基因组上
+
+          - 部分有向图算法（POA）
+
+  - mRNA
+
+    转录后层面
+
+    - mRNA Spiling
+      - isform
+
+  - 蛋白质
+
+    翻译后修饰
+
+    - Phosphorylation![img](https://api2.mubu.com/v3/document_image/888db341-f499-4d32-a1f0-3ffed4392003-12251550.jpg)
+
+    - Ubiquitination![img](https://api2.mubu.com/v3/document_image/b0bad36d-897c-4662-b5a4-cf76b2569188-12251550.jpg)
+
+    - Sumoylation![img](https://api2.mubu.com/v3/document_image/a21b14df-2359-4b9a-afa3-dcf3b355f82d-12251550.jpg)
+
+    - Palmitoylation![img](https://api2.mubu.com/v3/document_image/2c7f10a2-ec25-44b2-b68b-15229ce54787-12251550.jpg)
+
+    - Acetylation![img](https://api2.mubu.com/v3/document_image/06fc8c66-1251-4b8e-9271-6a00c8cb2e9a-12251550.jpg)
+
+  - 相互作用网络
+
+    P-P相互作用网络
+
+    - 相互作用的数据质量，网络拓扑结构![img](https://api2.mubu.com/v3/document_image/40ed060f-9598-48b4-a892-00463d950f46-12251550.jpg)
+
+    - Cytoscape
+      网络构建和分析工具
+
+    - 细胞信号通路
+      工具：KEGG
+      G1/S检验点：有调控方向
+
+  - 基因/蛋白质的功能预测
+
+    - 一级序列的比较：
+
+      相似的序列具有相似的功能
+
+      - 同源序列的鉴定：
+        不同物种中的直系、旁系同源物的预测
+
+      - BLAST
+
+    - 保守的功能结构域：
+
+      保守的功能
+
+      - 常用工具：
+
+        Interpro
+        http://www.ebi.ac.uk/interpro/
+        Pfam
+        http://pfam.sanger.ac.uk/
+        SMART
+        http://smart.embl.de/
+        PROSITE
+        http://www.expasy.org/prosite/
+        ProDom
+        http://prodom.prabi.fr/prodom/current/html/home.php
+        CDD
+        http://www.ncbi.nlm.nih.gov/Structure/cdd/wrpsb.cgi
+
+        - Interpro
+          整合多个功能结构域的数据库，灵敏度高，可能有假阳性
+
+        - Pfam
+          手工收集结构域，蛋白质家族分类，计算速度较慢，准确性较高
+
+        - SMART
+          根据蛋白质三级结构获得结构域信息，准确性较高
+
+    - 细胞亚定位分析
+
+      - 信号肽(signal peptides)
+        Nuclear export sequences (NES)
+        Nuclear localization sequences (NLS)
+
+      - TargetP
+        根据蛋白质序列N端氨基酸组成预测细胞亚定位
+
+      - SubLoc
+        首次将SVM算法应用于细胞亚定位预测
+
+      - PSORT
+        k-nearest neighbor算法
+
+    - 三级结构的比较：
+
+      1.相似的结构具有相似的功能，催化反应通路的分子机制相似
+      ​2.序列相似性：不显著！
+
+      - 泛素（Ubiquitin）![img](https://api2.mubu.com/v3/document_image/039af3fd-e238-4eb5-a556-9c1bb7392143-12251550.jpg)
+        主要负责蛋白质的降解
+
+      - SUMO![img](https://api2.mubu.com/v3/document_image/8cd33a12-c720-4b42-bf08-507fbed42f7d-12251550.jpg)
+        小的类泛素蛋白质，基因转录& 信号通路
+
+      - 序列相似性：~20%
+
+    - 蛋白质相互作用的预测
+
+      - 技术
+
+        - 酵母双杂交（Yeast two-hybrid, Y2H）只能筛选可溶性蛋白质
+
+          
+
+          
+
+          1.GAL4-DBD-bait (hybrid 1)
+          2.GAL4-AD-prey(hybrid 2; single or library)
+          3.bait-prey相互作用: GAL4激活报告基因
+
+          - Split-ubiquitin yeast two-hybrid
+
+            
+
+            1.两个膜蛋白分别与泛素分子的C端片段(“Cub”, 35–76) 和N端片段("Nub", 1–34) 连接
+            2.Cub与转录因子融合，并且可被泛素蛋白酶切割
+            3.bait–prey相互作用，泛素分子被切割，转录因子核内诱导报告基因表达
+
+            - 膜蛋白的相互作用筛选
+
+        - 亲和纯化/质谱![img](https://api2.mubu.com/v3/document_image/cf0ab30d-3210-4d81-a5bc-7ab57ce40de6-12251550.jpg)
+
+        - 网络分析![img](https://api2.mubu.com/v3/document_image/00637ec5-600f-465d-9020-220c3638636d-12251550.jpg)
+          Hub节点、拓扑结构、参数
+
+        - 介数中心性（Betweenness centrality）![img](https://api2.mubu.com/v3/document_image/fa065a53-a702-43f3-b33f-f50bd2b41f24-12251550.jpg)
+
+      - 工作
+
+        - Biocuration & Literature mining
+
+        - 基因组信息（genomic context method）
+          Gene fusion and fission
+          Conservation of gene order/bidirectional pairs
+          Phylogenetic profile
+          关联序列特征(Correlated sequence signatures)
+          mRNA co-expression
+
+        - Interolog
+
+          
+
+          
+
+          
+
+          直系同源的相互作用
+
+          - 相互作用数据整合
+            - PPI数据整合![img](https://api2.mubu.com/v3/document_image/4715df3f-0593-434f-9e10-de7e42547e4d-12251550.jpg)
+              三种PPI数据：实验验证、Interolog、预测的PPI
+
+        - Conservation of gene order/ bidirectional pairs
+
+          - Gene order pairs![img](https://api2.mubu.com/v3/document_image/94eab0e0-730f-49bf-bcb6-da3ff5bccad1-12251550.jpg)
+
+          - Bidirectional transcribed gene pairs![img](https://api2.mubu.com/v3/document_image/e2d6e717-1142-4a22-a2af-0e12b6e8fced-12251550.jpg)
+
+        - Phylogenetic profiles![img](https://api2.mubu.com/v3/document_image/191185fe-b974-43d1-9f23-7b0bc5e33288-12251550.jpg)
+
+        - 相关序列标记（Correlated sequence signatures）
+
+          - PID model（最大似然性法）![img](https://api2.mubu.com/v3/document_image/b418d4cf-cb46-4844-8aea-24e0eaff833e-12251550.jpg)![img](https://api2.mubu.com/v3/document_image/55568ef0-6068-4553-95c5-20618247589f-12251550.jpg)
+            faster and more convenient
+
+          - PIDC model![img](https://api2.mubu.com/v3/document_image/9581d1dd-5211-4ccc-8aa7-09d7c51d307f-12251550.jpg)
+
+        - 计算
+
+          - P(Imn = 1)![img](https://api2.mubu.com/v3/document_image/cdb21082-c5c4-49e8-860e-c1941ef9255d-12251550.jpg)
+            训练
+
+          - Conserved co-expression![img](https://api2.mubu.com/v3/document_image/2800f351-fe2c-4ef6-9152-c5e7232bacc5-12251550.jpg)
+
+        - 方法整合
+
+          - 贝叶斯算法![img](https://api2.mubu.com/v3/document_image/518957df-d110-47e1-a59a-4e808be136ff-12251550.jpg)
+
+          - STRING
+
+          - PrePPI
+
+            - 准确性比高通量实验高
+
+            - 根据三级结构能够预测蛋白质相互作用界面
+              1.PRKD1 and PRKCE
+              2.EEF1D and VHL
+
+      - 工具
+
+        - DIP
+          2000年，David Eisenberg研究组
+
+        - MINT
+          2002年，Molecular INTeraction
+
+        - IntAct
+
+        - BioGRID
+
+        - Rosetta Stone
+          Gene fusion/fission
+
+        - InWeb_IM/InBioMap™
+          实验+interolog
+
+        - IID
+          实验验证、Interolog、预测的PPI
+
+- 非编码区
+
+  - 功能元件
+
+    - 启动子
+
+      promoter > module > transcription factors(TF)
+
+      - regulatory modules
+
+      - regulatory motifs
+
+    - 转录因子
+
+      - Gal4p
+
+      - Kruppel
+
+    - 其他
+
+      - Exon
+
+        - exon splicing enhancer (ESE) 
+
+        - exon splicing silencer (ESS)
+
+  - 非编码RNA
+
+    transfer RNA (tRNA)
+    ribosomal RNA (rRNA)
+    snoRNAs
+    microRNAs
+    siRNAs
+    piRNAs: 与piwi相互作用的RNA
+    long ncRNAs: Xist
+    circRNAs
+
+    - RNA二级结构
+
+      
+
+      - 显示方式
+
+    - RNA能量
+
+      Doug Turner的能量法则
+
+      - 稳定性
+
+        - 动态规划算法
+
+          
+
+          最大碱基配对（找出可能的路径）
+
+          - RNA链与自身对比
+
+            - 存在碱基配对则增加分数
+
+            - 加入分歧的影响
+              考虑所有k值
+
+    - tRNA & rRNA
+
+    - snoRNAs
+
+      Small nucleolar RNAs
+      介导其他RNA分子的化学修饰
+
+      - 甲基化
+
+    - microRNA / miRNA
+
+      一种非编码小的RNA (~21–23 bp)，通过Dicer剪切其前体RNA (~70-90) 所得;
+      miRNA以RNA-蛋白质复合物的形式，在动物和植物的细胞中广泛的表达，也称为miRISCs;
+
+      能够促使与miRNA序列同源的靶基因的mRNA的降解 / 翻译的抑制
+
+      - pri-miRNAs（发夹环）
+
+        
+
+        - Drosha & Dicer
+
+          
+
+          - Drosha切割位点(箭头)
+            - Pri-miRNA被Drosha切割
+
+          - Dicer切割位点(三角)
+            - pre-miRNA被Dicer切割
+
+          - 结构域（都具有RNase III 和dsRNA结合结构域）![img](https://api2.mubu.com/v3/document_image/af852695-be31-4ba8-8da5-4f1a01da4dcf-12251550.jpg)
+            RIII, RNase III 催化结构域
+            D, dsRNA 结合结构域
+            PRORICH, proline-rich结构域
+            RS-RICH, arginine/serine rich结构域
+
+        - Exportin 5 (Exp5) 将miRNA装运到胞质中
+
+      - miRNAs的多样性
+        The miRBase Sequence Database
+
+      - miRNAs的计算鉴定
+        - MiRscan
+
+      - miRNAs在发育中的调控作用及底物
+
+        
+
+        - lin-4 和let-7 miRNAs调控线虫发育的时间点
+          在线虫的幼虫发育期，lin-4下调LIN-14和LIN-28蛋白质的浓度，从而一方面阻止后期发育，一方面促进幼虫的发育
+
+      - 不完美配对
+
+      - miRNA底物的计算发现
+
+        miRanda网站
+
+        - 位于基因的3’ UTR（untranslated region）区域，与成熟的miRNA互补
+          植物：序列互补程度高
+          动物：互补程度低
+
+        - 靶序列特征
+          长度较短(~21 nt)
+          G-U配对
+          错配和空位(bulges)
+          假阳性高
+
+        - 准确性
+          mRNA UTR的二级结构
+
+        - 特性
+
+          - 保守性
+
+            miRNA靶序列在不同物种中保守
+
+            - 与miRNA的5’端匹配更好
+
+          - 成簇性
+            倾向于聚集成簇
+
+      - Targetscan
+         给定一个在多物种中保守的miRNA及相应的直系同源UTR区域
+         miRNA seed: 7nt
+         延伸每一条seed并发现最佳能量
+         计算Z值
+         排序结果，获得Ri值
+         保留Zi>Zc和Ri<Rc的结果
+
+  - 转座子（Transposon）![img](https://api2.mubu.com/v3/document_image/607dd67c-168f-40ee-b706-a1fd2d96fb82-12251550.jpg)
+    在基因组中能够移动位置的DNA序列
+
+  - 重复片段
+
+  - 伪基因（Pseudogene）
+
+- 基因组注释
+
+  - 基因组序列的拼装
+
+  - 基因预测
+
+  - 可变剪切的预测
+
+  - 非编码的功能元件的预测
+
+
+## miRNA组学分析
+
+miRNA
+
+- miRBase – database
+- 通过物种搜索
+- 作用机制：
+	- 结合nRNA 3’端UTR – 抑制表达
+	- 完全匹配结合mRNA – 切割，类似RNAi
+- 参与生物体生长、发育、衰老、疾病和死亡的调节
+- question:![image-20221124140325679](C:/Users/%E9%83%91%E8%BE%BE/AppData/Roaming/Typora/typora-user-images/image-20221124140325679.png)
+
+miRNA-seq/smRNA-seq
+
+- smRNA:
+- small RNA-seq经常用于鉴定miRNA的表达
+- pipline:
+	- 准备smRNA
+	- sequencing
+		- single read (SR)
+		- paired end (PE)
+	- data analysis
+	- tools
+		- quality
+			- question:![image-20221124142427585](C:/Users/%E9%83%91%E8%BE%BE/AppData/Roaming/Typora/typora-user-images/image-20221124142427585.png)
+		- trim
+		- alignment to genome
+			- map to genome
+			- common alignment conventions
+			- remove other non-coding RNA
+		- map to mirna_precursor
+		- miRNA expression
+			- RPM
+			- RPKM
+			- numReads
+			- geneLength
+			- totalNumReads
+		- differential expression analysis
+			- 标准化方法
+			- 差异基因检测
+		- novel miRNA discovery
+
+miRNA
+
+- expression
+- SNP (single-nucleotide polymorphism)
+	![image-20221124144552457](C:/Users/%E9%83%91%E8%BE%BE/AppData/Roaming/Typora/typora-user-images/image-20221124144552457.png)
+- Target prediction
+	- seed – binding site
+	- 结合最小自由能
+	- question:
+		![image-20221124144954761](C:/Users/%E9%83%91%E8%BE%BE/AppData/Roaming/Typora/typora-user-images/image-20221124144954761.png)
+- disease databases
+
+annotation – TAM
+
+miRNA & lncRNA
+
+## TCGA
+
+the cancer genome atlas 癌症基因组图谱
+
+- 人类20多种癌症中全基因组图谱改变中所需的研究框架
+- 合作机构：
+	- national cancer institute (NCI) 美国国立癌症研究所
+	- national human genome research institute (NHGRI) 美国国立人类基因组研究所
+- 部门：
+	- TSS – 临床数据
+	- BCR – 技术类型数据
+	- DCC – 数据协调中心
+	- GCCs/GSCs – 鉴定中心/测定中心
+- 数据组织形式：barcode
+- 数据发布：genomic data commons (GDC平台)
+
+data type:
+
+- clinical data
+- images
+- microsatellite instability (MSI)
+- sequening:
+	- DNA/miRNA/mRNA/total RNA
+- protein expression
+- array-based expression
+- DNA methylation
+- copy number
+
+data level: raw/processed/segmented(interpreted)/summary(regions of interest ROI)
+
+低水平测序数据 – CGHUB
+
+## TCGA
+
+肿瘤相关，是一个项目组织: 癌症基因组计划
+
+团队组成：
+
+- TSS
+- BCR
+- DCC
+- GCCs/GSCs
+
+barcode: 定义病人样本
+
+GDC: 数据发布平台
+
+数据类型：
+
+- raw – fastaq
+- processed – sam(测序), fam
+- se/int
+- ROI
+
+# 测序分析
+
+## Functional Enrichment Analysis
+
+questions:
+![image-20221124161610713](C:/Users/%E9%83%91%E8%BE%BE/AppData/Roaming/Typora/typora-user-images/image-20221124161610713.png)
+
+Enrichment Analysis: statistically比较一个gene set和background
+
+- 分类：
+	- genomics, proteomics – 对一个物种的全部注释
+	- microarrays – 对一个gene set的全部注释\
+	- RNA-seq data analysis – 特定组织中的基因长度趋势效果
+- gene list:
+	- identifier
+	- method
+- workflow:
+	- 后端注释数据库 annotation database
+	- data mining：要输入一个gene list
+		- algorithms – annotation – diff.discovery ideas
+			- sources
+		- 数据检验 statistics：
+			- hypergeometric
+			- binomial
+			- &chi;<sup>2</sup> (chi-square)
+			- Fisher’s exact test
+			- &Zeta;
+			- Kolmogorov-Smirnov
+			- Permutation
+	- 结果 – GO terms
+
+question:
+![image-20221124164456876](C:/Users/%E9%83%91%E8%BE%BE/AppData/Roaming/Typora/typora-user-images/image-20221124164456876.png)
+
+## GEO SRA
+
+### GEO
+
+gene expression omnibus – NCBI基因表达数据库
+
+数据组织方式：
+
+- platform(GPLxxx)/samples(GSMxxx)/series(GSExxx)
+- dataset(GDSxxx)/profile(表达谱)
+
+cluster
+
+tools:
+
+- GEO2R
+
+### sequence read archive (SRA)
+
+throughput sequencing data
+
+共享有史以来所有用户的测序数据
+
+## 单细胞测序
+
+单细胞技术：研究胚胎发育中早期细胞变化
+
+- 背景
+- 需求 – 癌细胞混合物
+	![image-20221124185339862](C:/Users/%E9%83%91%E8%BE%BE/AppData/Roaming/Typora/typora-user-images/image-20221124185339862.png)
+
+### 10&times;genomics高通量单细胞技术
+
+微流控技术: 自动化分选平台 – 单细胞转录组测序，自动完成：
+
+- 分选细胞 – 分析注释 – 特定细胞亚群marker基因
+	- 自动化分选：一次10000个细胞，对成活率有要求
+		- 10&times;Genomics: 凝胶珠、油滴
+		- single tube – smart-seq2
+	- 单细胞转录组分析
+- 建库
+
+Single rube – 传统技术
+
+### 单细胞获取+测序技术
+
+单细胞获取：
+
+- 有限稀释 limiting dilution
+- 显微操作 micromanipulator
+- 激光显微切割 LCM
+- 流式细胞分选 FACS
+- 微流控 microfluidics
+
+amplification – genome
+
+- multiple displacement amplification (MDA)
+- multiple annealing and looping-based amplification cycles (MALBAC)
+
+全转录组测序
+
+- 单细胞全基因组测序 scWGS
+- 单细胞外显子测序 scWES
+
+- 扩增
+- biopic
+
+分析：
+
+- 表达量分析/差异表达分析/聚类分析/功能分析
+- mRNA/lncRNA差异分析/靶标预测及分析
+- circRNA差异分析/circRNA来源分析
+- 对primary tumors的单细胞测序分析：
+	1. somatic(体细胞) mutation calling
+	2. population analysis
+	3. progression inferring (key genes)
+		- key mutation
+		- evolution analysis – Bladder Cancer (BTCC)
+
+### 临床应用
+
+diagnose 早期诊断 – invasive
+
+prognosis 预后(预测后果)
+
+个性化治疗
+
+- target-drugs design
+- cocktail treatment
+
+动态监测
+
+- tumor “stem cell” detection
+
+肿瘤组学治疗分析：
+
+- 遗传算法
+- center – 找到血液中/脑脊液中的肿瘤因子
+- 愈后
+- 检测
+- 试管婴儿胚胎单细胞检测 – 植入前遗传学诊断PGD
+
+# 肿瘤组学分析GSCA
+
+## 癌症数据分析平台
+
+肿瘤组学数据
+
+- 公共数据 – TCGA
+	![image-20221124193118027](C:/Users/%E9%83%91%E8%BE%BE/AppData/Roaming/Typora/typora-user-images/image-20221124193118027.png)
+	- GSCA workflow:
+		1. gene set expression
+			- gene set mRNA表达数据+cancer type – GSVA score
+		2. gene set nutation
+		3. immune
+		4. TNM stage
+	- cell cycle pathway
+		- GSCA – mutation
+	- oncomine
+- 自测数据 – 肿瘤转录组数据
+	- 肿瘤免疫分析
+		![image-20221124193205611](C:/Users/%E9%83%91%E8%BE%BE/AppData/Roaming/Typora/typora-user-images/image-20221124193205611.png)
+		- T cell receptor (TCR)
+		- CharActerzing TCR reperToires (CATT)
+	- 表达调控分析
+		![image-20221124193227609](C:/Users/%E9%83%91%E8%BE%BE/AppData/Roaming/Typora/typora-user-images/image-20221124193227609.png)
+		- human transcription factor (TF)
+		- FFLtool – analyze with gene list
+		- specifically expressed gene (SEG)
+
+筛选关键分子 – 验证 – 功能研究
+
+- 细胞系筛选 GEDS(gene expression display server)
+- 细胞系鉴定 CCLA(cancer cell line authentication)
+
+癌症DB/研究中心
+
+- ICGC：癌症联盟
+- GTEx: 正常死亡器官组学分析
+
+Tumor immunology – 有一些没有响应 – 提高
+
+免疫细胞疗法：
+
+- 单细胞分析/每个免疫 – 费时费力
+- T细胞亚型
 # 分子进化与系统发育分析
 
 生物学家：We have a dream…
