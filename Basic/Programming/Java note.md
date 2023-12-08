@@ -4,11 +4,15 @@ Java platform: my program -> hardware-based program / 机器码 (machine code, n
  - Java Virtual Machine
  - Java Application Programming interface (API)
 ## Language
-object-oriented programming: 
- - real world object: two characteristics, state and behavior
- - software object:
-	 - state: fields/variables
+object-oriented programming: two characteristics
+ - real world object: state and behavior
+ - software object: including members below
+	 - state: variables/fields
 	 - behavior: methods/functions
+		 - static: cannot access object's variables
+			 - mix of static and non-static methods
+		 - non-static: instance
+			 - invocation: `new` to create a specific instance, cannot using class name
 
 fundamental principle: data encapsulation
  - hiding internal state, accessing it only through publicly exposed metods
@@ -36,4 +40,9 @@ example template:
 	 - require the class to implement it
 	 - omit some methods and see the error
 
-static method: the methods can not be changed by objects' features
+class -> variable: Declaration
+class -> Object: Instantiation
+ - `new`
+Object -> variable: Assignment
+member of Object: Invocation
+ - `Variable_of_Object.Member`
