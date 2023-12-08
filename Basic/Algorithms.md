@@ -7,7 +7,8 @@
 蛋白质一般在三级结构的层面上执行功能
 蛋白质序列的保守性决定于其编码DNA的保守性
 
-- 进化假设（序列同源性模型）![img](https://api2.mubu.com/v3/document_image/083b9b3d-9006-41b0-9c0f-3b88e6010c5a-12251550.jpg)
+- 进化假设（序列同源性模型）
+  ![img](https://api2.mubu.com/v3/document_image/083b9b3d-9006-41b0-9c0f-3b88e6010c5a-12251550.jpg)
   所有的生物都起源于同一个祖先
   序列不是随机产生，而是在进化上，不断发生着演变
 
@@ -121,9 +122,6 @@
               
 
               - 回溯
-
-                
-
                 - 比对结果/打分![img](https://api2.mubu.com/v3/document_image/270e5004-8944-46b2-8f99-fb17ab398bb6-12251550.jpg)![img](https://api2.mubu.com/v3/document_image/eb73afb2-8c32-44c3-8834-4aed26752222-12251550.jpg)
                   Smith-waterman算法打分：9分
                   直接打分：-4+2+4-12+9-1=-2
