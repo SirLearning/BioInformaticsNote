@@ -97,8 +97,6 @@
 
                 - 回溯
 
-                  
-
                   - 比对结果![img](https://api2.mubu.com/v3/document_image/e6ec9418-996c-42a8-9999-c55dfae4a140-12251550.jpg)
 
       - 局部优化比对（Local）: Smith-Waterman
