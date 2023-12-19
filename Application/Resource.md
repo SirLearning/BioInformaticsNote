@@ -1,71 +1,64 @@
 # 先验
+## 软件安装
 
-## 数据库
+三类程序：
+- 二进制可执行程序：下载软件包解压后可全路径调用
+	- sratoolkit和ncbi的blast软件
+- 语言代码
+	- C源码：`./configure,make,make install`
+	- python：模块依赖的问题，建议直接用conda
+- 系统/语言自带软件中心安装器：`apt-get，yum，cpan，cran，brew, pip,conda，docker`
+	- pip：`pip install --index-url https://pypi.douban.com/simple cnvkit deeptools HTSeq `
+	- conda：也需要设置镜像加速
+		- 安装：
+			- `wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh`
+			- `sh Miniconda2-latest-Linux-x86_64.sh`
+		- 安装之后运行`source`激活conda，或者直接添加到环境变量，然后` source  ~/.bashrc` 激活环境变量
+		- conda安装软件管理：安装bioconda
+		- ```conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+		  conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
+		  conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda
+		  conda config --set show_channel_urls yes
+		  conda config --show
+		  conda install -y -c bioconda homer
+		  conda install -y -c // bioconda 等任何软件，安装之前先搜索了解软件本身```
 
-Pubmed: articles
+```
+solver: libmamba
+channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+  - defaults
+restore_free_channel: true
+auto_activate_base: false
+```
 
-大数据库：
-- NCBI
-	 - Sequence
-		 - DNA: >NM_
-		 - Protein: >sp|P42345|...
-	 - 
-- EBI
-
-蛋白质结构：
-- PDB  http://www.rcsb.org
-- pFAM  http://pfam.xfam.org/
-- PDBe
-- RasMol: display
-
-Gene function
- - Genome Location: chromosome location, sequence loci
- - Functional Domain: BLAT
-	 - InterPro Domains
-	 - Pfam Domains
- - Gene Ontology (GO) annotations with structured vocabulary
-	 - Molecular function
-	 - Biological process
-
-药物数据库：
-- DrugBank  https://www.drugbank.ca/
-
-分子数据：
-- Genome: 
-  - EBI Magnify  https://www.ebi.ac.uk/metagenomics/, 微生物组
-- Transcriptome
-  - AnimalTFDB 3.0  http://bioinfo.life.hust.edu.cn/AnimalTFDB/, 动物转录因子数据库
-- Proteome
-- Metabolome
-- Lipidome
-- Epigenome
-- Meta-genome
 ## 工具库
 
-序列比对：
- - GCG
- - BLAST
- - ClustalX  http://bips.u-strasbg.fr/fr/Documentation/ClustalX/, 图形化的多序列比对工具 
- - ClustalW  http://www.cf.ac.uk/biosi/resear...loads/clustalw.html, 命令行格式的多序列比对工具 
- - GeneDoc  http://www.psc.edu/biomed/genedoc/, 多序列比对结果的美化工具 
- - BioEdit  http://www.mbio.ncsu.edu/BioEdit/bioedit.html, 序列分析的综合工具
- - WebLogo  http://weblogo.berkeley.edu/logo.cgi, 序列保守性
- - Cluster 3.0  http://bonsai.hgc.jp/~mdehoon/software/cluster/software.htm
+比对：
+- bwa, bowtie2, hisat2, subjunc, STAR 
+- GCG
+- BLAST
+- ClustalX  http://bips.u-strasbg.fr/fr/Documentation/ClustalX/, 图形化的多序列比对工具 
+- ClustalW  http://www.cf.ac.uk/biosi/resear...loads/clustalw.html, 命令行格式的多序列比对工具 
+- GeneDoc  http://www.psc.edu/biomed/genedoc/, 多序列比对结果的美化工具 
+- BioEdit  http://www.mbio.ncsu.edu/BioEdit/bioedit.html, 序列分析的综合工具
+- WebLogo  http://weblogo.berkeley.edu/logo.cgi, 序列保守性
+- Cluster 3.0  http://bonsai.hgc.jp/~mdehoon/software/cluster/software.htm
 
 进化树：
 - MEGA  http://www.megasoftware.net/, 图形化、集成进化分析，物种和基因进化分析，不包括ML
 - iTOL  https://itol.embl.de/, 物种和基因进化分析
 - 集成的进化分析工具 ：
-	  - PAUP  http://paup.csit.fsu.edu/, 商业
-	  - PHYLIP  http://evolution.genetics.washington.edu/phylip.html, 免费
+	- PAUP  http://paup.csit.fsu.edu/, 商业
+	- PHYLIP  http://evolution.genetics.washington.edu/phylip.html, 免费
 - ML建树工具：
-	  - PHYML  http://atgc.lirmm.fr/phyml/, 最快
-	  - Tree-puzzle  http://www.tree-puzzle.de/, 较快
-	  - PAML  http://abacus.gene.ucl.ac.uk/software/paml.html
-	  - PALM
+	- PHYML  http://atgc.lirmm.fr/phyml/, 最快
+	- Tree-puzzle  http://www.tree-puzzle.de/, 较快
+	- PAML  http://abacus.gene.ucl.ac.uk/software/paml.html
+	- PALM
 - 基于贝叶斯方法的建树工具：
-	  - MrBayes  http://mrbayes.csit.fsu.edu/
-	  - MAC5  http://www.agapow.net/software/mac5/
+	- MrBayes  http://mrbayes.csit.fsu.edu/
+	- MAC5  http://www.agapow.net/software/mac5/
 - TreeView  http://taxonomy.zoology.gla.ac.uk/rod/treeview.html, 进化树显示工具
 - Maple Tree  http://mapletree.sourceforge.net/
 
@@ -106,9 +99,21 @@ Gene function
 	  - DAVID
 	  - GSEA
 
+质量控制工具：fastqc, fastx_toolkit, cutadapt, TrimGalore, RSeQC或者RNA-SeQC, qualimap, skewer, NGScheckmate
+
+找变异：GATK, Platypus, VarScan, LoFreq, FreeBayes, SNVer, SAMtools, VarDict, cnvkit, sequenza
+
+计数： bedtools, htseq-counts, FeatureCounts, salmon
+
+差异分析的R包：limma, DEseq2, edgeR
+- 差异表达分析及可视化：ballgown
+
+重构转录本：stringTie
+
 可视化：
 - Genome Browser  http://genome.ucsc.edu/, 基因组可视化
 - Echart  https://www.echartsjs.com/examples/zh/index.html, 生物数据可视化
+- IGV
 
 分子结构：
 - 分子动力学模拟：
@@ -132,51 +137,50 @@ Gene function
 - ScanArray
 - Array-Pro
 
+绘图：ggplot2+ggpubr包
 
-## 数据与数据库：
+其他：deeptools
+
+## 数据存储
+
+数据格式：fastq, fasta, sam, bam, vcf, gff, gtf, bed, MAF
+参考基因组、基因组注释：
+- 人体基因：数量，分类，基因结构
+- genecard
+- TCGA
+- ENCODE
+- GTEx
+- 基因集注释数据库：GO terms/Pathway (KEGG, BIOCARTA,Reactome)  MSigDB
+
 
 数据库集合网站：NAR Database Category List
 
 大型数据库网站：
-
 1. NCBI
 2. EBI
-3. SIB Expasy
+3. 
 4. NGDC（BIGD）
 
 数据库使用注意事项：
-
-安全问题：不要将公司或者是私人信息发送到web server
-
-科学可重复性：
-
-- 记录使用的数据库
-- 记录使用的程序
-- 记录程序版本号
-
-- 记录序列的accession numbers：在不同的database中会有不同，所以要记录database IDs以及选取最大的一个数据库。
-
-- 记录程序参数 -- 写lab book
-
-保存：
-
-- Flashy graphs: 发表以及查看
-- ASCII(text) files: 之后的工作
-	- MSAs: xxxx.aln
-	- Trees: xxx.dnd, xxx.ph
-
-检查不同程序的边界值(borderline results)：检查其准确性
-
-- 多用几个程序，来缩小误差概率，最后的结果用一致性检验和一致的方法来做对比和取最佳结果（consistency-checking; consensus approach）
-
-注意unpublished methods（当然发行过的也不一定是好的）
-
-Data选用新的最好
-
-大多数资源对学术是free的，但面向公司的都是付费的。
+1. 安全问题：不要将公司或者是私人信息发送到web server
+2. 科学可重复性：
+	- 记录使用的数据库
+	- 记录使用的程序
+	- 记录程序版本号
+	- 记录序列的accession numbers：在不同的database中会有不同，所以要记录database IDs以及选取最大的一个数据库。
+	- 记录程序参数 -- 写lab book
+3. 保存：
+	- Flashy graphs: 发表以及查看
+	- ASCII(text) files: 之后的工作
+		- MSAs: xxxx.aln
+		- Trees: xxx.dnd, xxx.ph
+4. 检查不同程序的边界值(borderline results)：检查其准确性
+	- 多用几个程序，来缩小误差概率，最后的结果用一致性检验和一致的方法来做对比和取最佳结果（consistency-checking; consensus approach）
+5. 注意unpublished methods（当然发行过的也不一定是好的）
+6. Data选用新的最好
+7. 大多数资源对学术是free的，但面向公司的都是付费的。
 
 构建数据库需要注意的事情：
-
 - 抢占先机: clustalw
 - 持续维护: PlantTFDB, AnimalTFDB
 - 软件和数据库的依赖性: OS
@@ -184,17 +188,14 @@ Data选用新的最好
 ## 文献检索
 
 引文网站：
-
-- NCBI PUBMED
+- NCBI Pubmed: articles
 - Web of Science
 
 学术搜索：
-
 - Google scholar
 - Google or bing.com
 
 出版社：
-
 - Springer-Nature
 - Elsevier Science
 - HighWire Press
@@ -202,10 +203,10 @@ Data选用新的最好
 - Oxford
 
 文献管理：
-
 - Endnote
+- Zotero
 
-# NCBI+国内数据库
+# 国际数据中心
 
 ## NCBI
 
@@ -309,21 +310,17 @@ EBI：维护着世界上最全面的分子数据资源
 
 ​		EMBOSS: The European Molecular Biology Open Software Suite
 
-## 学术圈：
+## EBI
 
-顾孝诚
+## SIB Expasy
 
-吴瑞
+## ENSEMBL
 
-CUSBEA：生命科学公派留学
+## UCSC
 
-ICGEB
+## NGDC (BIGD)
 
-CBI：北京大学生物信息中心
-
-郝柏林：理论物理学家转生信
-
-## 国家生物信息中心（CNCB）：
+国家生物信息中心 (CNCB)
 
 原始测序数据归档库：genome sequence archive(GSA)
 
@@ -579,16 +576,16 @@ Ensembl Genes: protein/mRNA + sequence assembly
 
 # Genome
 
-## UCSC genome browser: 美国
+## UCSC genome browser
+
+美国
 
 select:
-
 - species
 - appropriate assembly
 - gene
 
 result:
-
 - genome location
 - gene ID and sequence
 - expression
@@ -603,7 +600,6 @@ result:
 Transcript details
 
 Track groups:
-
 - mapping and sequencing
 - genes and gene predictions
 - phemotype and literature
@@ -616,7 +612,6 @@ Track groups:
 			- TF ChIP
 
 Tools
-
 - my data – custom tracks / add custom tracka
 	- BED (browser extensible data): positonal annotations
 		- ChIP-seq signal for TF binding
@@ -734,8 +729,7 @@ UniProt
 
 ### 蛋白结构数据库
 
-PDB (Protein Databank)
-
+PDB (Protein Databank): http://www.rcsb.org
 - 不仅有蛋白结构，还有核酸和多糖结构
 - ID：
 	- 第一个符号：1-9数字
@@ -743,14 +737,27 @@ PDB (Protein Databank)
 - entry
 - 3D view – 序列标注视图
 
-AlphaFold DB (AlphaFold Protein Structure Database)
+pFAM  http://pfam.xfam.org/
 
+PDBe
+
+RasMol: display
+
+AlphaFold DB (AlphaFold Protein Structure Database)
 - 平均已经取得实验测定结构的准确程度
 
 ### 功能数据库 (domain, function site)
 
-Pfam:
+Gene function
+- Genome Location: chromosome location, sequence loci
+- Functional Domain: BLAT
+	- InterPro Domains
+	- Pfam Domains
+- Gene Ontology (GO) annotations with structured vocabulary
+	- Molecular function
+	- Biological process
 
+Pfam:
 - 两个内容：
 	- Pfam-A entries：被很好维护的families
 	- Pfam-B entries：自动生成的entries
@@ -761,13 +768,11 @@ Pfam:
 - Pfam Search
 
 SMART
-
 - 两种模式：
 	- normal
 	- genomic
 
 motif databases: Scan Prosite, PRINTS
-
 - store：保守的模体 – 核酸/蛋白序列
 - 保存方式：
 	- consensus sequences
@@ -775,7 +780,6 @@ motif databases: Scan Prosite, PRINTS
 	- statistical representations: residue frequency table
 
 Interpro：蛋白质功能数据库的整合
-
 - members: 
 	- CDD, Pfam, PRINTS, SMART, 
 	- PROSITE profiles, PROSITE patterns
@@ -796,7 +800,6 @@ Interpro：蛋白质功能数据库的整合
 - Browse
 
 Gene Ontology (GO)
-
 - 一项倡议(initiative) – 标准化物种/数据库间，基因和基因产物的属性的表示
 	- a contrilled vocabulary of terms
 	- gene product annotation data
@@ -808,7 +811,6 @@ Gene Ontology (GO)
 - search the ontology
 
 KEGG (Kyoto Encyclopedia(百科全书) of Genes and Genomes)
-
 - KEGG PATHWAY Database
 	- metabolism
 	- genetic information processing
@@ -819,12 +821,10 @@ KEGG (Kyoto Encyclopedia(百科全书) of Genes and Genomes)
 	- drug development
 
 National Cancer Institute
-
 - Cancer Genome Anatomy Project – pathway
 - Erk1/Erk2 Mapk signaling pathway
 
 PPI database:
-
 - HPRD
 	- browse
 - BioGrid (biological general repository for interaction datasets)
@@ -1103,3 +1103,21 @@ STRING network
 - COXPRESdb：基因表达数据库
 - WGCNA：权重网络的R包
 - CoExp：web tool – 共表达网络的开发
+
+# Molecular
+
+## databases
+
+药物数据库：
+- DrugBank  https://www.drugbank.ca/
+
+分子数据：
+- Genome: 
+	- EBI Magnify  https://www.ebi.ac.uk/metagenomics/, 微生物组
+- Transcriptome
+	- AnimalTFDB 3.0  http://bioinfo.life.hust.edu.cn/AnimalTFDB/, 动物转录因子数据库
+- Proteome
+- Metabolome
+- Lipidome
+- Epigenome
+- Meta-genome

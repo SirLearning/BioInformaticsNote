@@ -1,4 +1,7 @@
 k-mer来评估基因组特征，即作为一种Marker
+
+高级分析： WGCNA  , COX回归等生存分析 ，LASSO回归等机器学习
+
 # 测序分析
 
 ## Genome assembly and annotation
