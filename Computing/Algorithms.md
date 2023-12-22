@@ -1,3 +1,4 @@
+
 # 生物序列分析
 
 History:
@@ -15,179 +16,87 @@ History:
 # 序列比对/联配
 ## 双序列比对/二序列联配
 
-用于：基于同源序列鉴定的功能预测
-0
-注意：
-蛋白质一般在三级结构的层面上执行功能
-蛋白质序列的保守性决定于其编码DNA的保守性
+### 基础知识
 
-- 进化假设（序列同源性模型）
-  ![img](https://api2.mubu.com/v3/document_image/083b9b3d-9006-41b0-9c0f-3b88e6010c5a-12251550.jpg)
-  所有的生物都起源于同一个祖先
-  序列不是随机产生，而是在进化上，不断发生着演变
+用途：基于同源序列鉴定的功能预测
+
+注意：
+- 蛋白质一般在三级结构的层面上执行功能
+- 蛋白质序列的保守性决定于其编码DNA的保守性
+
+进化假设（序列同源性模型）：序列保守性决定了结构保守性（反之可不为真）
+- 所有的生物都起源于同一个祖先
+- 序列不是随机产生，而是在进化上，不断发生着演变
 
 - 同源序列
-
-  - Ortholog（直系同源序列）：
-
-    
-
-    两个基因通过物种形成的事件而产生，或源于不同物种的最近的共同祖先的两个基因，或者两个物种中的同一基因，一般具有相同的功能
-
-    - 物种形成
-
-  - Paralog（旁系同源序列）：
-
-    
-
-    两个基因在同一物种中，通过至少一次基因复制的事件而产生
-
-    - 基因复制
-
-  - Xenolog（异同源序列）：
-    由某一个水平基因转移事件而得到的同源序列
-
-  - 一个复杂的问题![img](https://api2.mubu.com/v3/document_image/d6af729c-c9e7-4c01-9c00-d1c5fd8c6bae-12251550.jpg)
-
-- 算法
-
-  - 点阵法（Dot Matrix）
-
-    寻找两条序列间所有可能的比对
-    发现蛋白质或者DNA序列上正向或者反向的重复
-    发现RNA上可能存在的互补区域
-
-    - 工具：
-      https://dotlet.vital-it.ch/
-      https://myhits.isb-sib.ch/cgi-bin/dotlet
-      http://www.bioinformatics.nl/cgi-bin/emboss/dotmatcher
-
-    - Dotlet JS
-
-    - 自身对比
-
-      - 重复序列![img](https://api2.mubu.com/v3/document_image/5d7d80cc-5cc5-494f-9030-96a638f92f9d-12251550.jpg)
-
-      - 反向重复/回文![img](https://api2.mubu.com/v3/document_image/1036bbc9-5ef3-4a86-b5c1-e8a8ca216ac0-12251550.jpg)
-
-    - 不同序列比对![img](https://api2.mubu.com/v3/document_image/782868c1-11dc-43a0-9cc5-456b36cde727-12251550.jpg)
-
-  - 动态规划算法
-
-    比较所有可能的字符对，考虑匹配、错配以及空位罚分，并且将比对次数控制在多项式时间内
-
-    - 前提（说明好坏）![img](https://api2.mubu.com/v3/document_image/dd2026f4-3152-4e00-b4d4-b478cef8bc2d-12251550.jpg)
-      两条序列的相似性 → 相似/相同的生物学功能
-
-    - 模型
-
-      - 全局优化比对（Global）: Needleman-Wunsch
-
-        BLAST (Global Alignment), https://blast.ncbi.nlm.nih.gov/Blast.cgi
-
-        - 运用实例
-
-          
-
-          可采取线性罚分：gap=11
-
-          - 递归算法
-
-            
-
-            要求解Sij的分数，我们必须先知道Si-1, j-1, Si-1, j, 以及Si, j-1的分数，这种方法叫做递归算法；
-            采用这种方法，可以把大的问题分割成小的问题逐一解决，即动态规划算法；
-            需要存储如何得到Sij分数的过程。
-
-            - Needleman-Wunsch算法（过程标箭头）
-
-              
-
-              时间复杂度O(n^2)
-
-              - 递归结果
-
-                
-
-                - 回溯
-
-                  - 比对结果![img](https://api2.mubu.com/v3/document_image/e6ec9418-996c-42a8-9999-c55dfae4a140-12251550.jpg)
-
-      - 局部优化比对（Local）: Smith-Waterman
-
-        EMBOSS Water, https://www.ebi.ac.uk/Tools/psa/emboss_water/
-
-        - 运用实例
-
-          
-
-          可采取线性罚分：gap=12
-
-          - Smith-Waterman算法
-
-            
-
-            时间复杂度O(n^2)
-
-            - 递归结果
-
-              
-
-              - 回溯
-                - 比对结果/打分![img](https://api2.mubu.com/v3/document_image/270e5004-8944-46b2-8f99-fb17ab398bb6-12251550.jpg)![img](https://api2.mubu.com/v3/document_image/eb73afb2-8c32-44c3-8834-4aed26752222-12251550.jpg)
-                  Smith-waterman算法打分：9分
-                  直接打分：-4+2+4-12+9-1=-2
-
-    - 无空位罚分的双序列比对
-
-      
-
-      - 计算效率/计算复杂性
-
-        用CPU的计算时间和内存占用量来衡量
-        O( )=…, 时间复杂度
-        对于需要解决的问题，其单位数量n运算的时间是一定的f(n)
-        如果需要解决的问题的大小与单位数量n的平方成正比，则O(n)=n^2
-        对于算法来说：O(logn) > O(n) > O(n^2)
-
-        - NP难题
-
-          无法找到能够在多项式时间复杂度内解决的问题
-          一般的，O(nk), 当k≤3 时，为多项式时间，较为容易处理
-          当O(nk)= 指数级时间，则难以处理
-
-          - 近似算法/优化算法，求近似解
-
-    - 有空位罚分的双序列比对
-
-      
-
-      
-
-      
-
-      递归
-
-      - 时间复杂度：
-
-        
-
-        为O(2^2n)，指数增加，无法求最优解
-        ​NP-hard问题
-
-        - 斯特林公式![img](https://api2.mubu.com/v3/document_image/f0aeb4ee-a148-4f0f-a699-bf9ed1e3a21f-12251550.jpg)
-
-      - 总分![img](https://api2.mubu.com/v3/document_image/d4aa63bf-a60f-47fe-8668-734c64a3d9bc-12251550.jpg)
-        Score=Σ(AA pair scores) –gap penalty = 15
-
-    - 打分模型
-
-      - 替代矩阵
-
-        字符相同：identity
-        字符替代：similarity，相似性，氨基酸/碱基之间的替代和突变
-
-        - 似然性值
+- Ortholog（直系同源序列）：两个基因通过**物种形成**的事件而产生，或源于不同物种的最近的共同祖先的两个基因，或者两个物种中的同一基因，一般具有相同的功能
+- Paralog（旁系同源序列）：两个基因在同一物种中，通过至少一次**基因复制**的事件而产生
+- Xenolog（异同源序列）：某一个水平基因转移事件而得到的同源序列
+
+### 算法
+
+点阵法（Dot Matrix）
+- 功能：
+	- 寻找两条序列间所有可能的比对
+	- 发现蛋白质或者DNA序列上正向或者反向的重复
+	- 发现RNA上可能存在的互补区域
+- 工具：
+	- Dotlet JS https://dotlet.vital-it.ch/
+	- https://myhits.isb-sib.ch/cgi-bin/dotlet
+	- http://www.bioinformatics.nl/cgi-bin/emboss/dotmatcher
+- 对比结果：
+	- 相同序列比对：
+		- 重复序列
+		- 反向重复/回文
+	- 不同序列比对
+
+动态规划算法：比较所有可能的字符对，考虑匹配、错配以及空位罚分，并且将比对次数控制在多项式时间内
+- 比对效果的好与坏：两条序列的相似性 → 相似/相同的生物学功能
+  ![img](https://api2.mubu.com/v3/document_image/dd2026f4-3152-4e00-b4d4-b478cef8bc2d-12251550.jpg)
+- 模型
+	- 全局优化比对（Global）: Needleman-Wunsch
+		- BLAST (Global Alignment) https://blast.ncbi.nlm.nih.gov/Blast.cgi
+		- 运用实例：采取线性罚分：gap=11
+			1. 递归算法：要求解Sij的分数，我们必须先知道Si-1, j-1, Si-1, j, 以及Si, j-1的分数，这种方法叫做递归算法；采用这种方法，可以把大的问题分割成小的问题逐一解决，即动态规划算法；需要存储如何得到Sij分数的过程。
+			2. Needleman-Wunsch算法（过程标箭头）：时间复杂度O(n^2)
+			3. 递归结果
+			4. 回溯
+			5. 比对结果
+	- 局部优化比对（Local）: Smith-Waterman
+		- EMBOSS Water, https://www.ebi.ac.uk/Tools/psa/emboss_water/
+		- 运用实例：采取线性罚分：gap=12
+			1. Smith-Waterman算法：时间复杂度O(n^2)
+			2. 递归结果
+			3. 回溯
+			4. 比对结果/打分
+	- 结果对比：
+		- Smith-waterman算法打分：9分
+		- 直接打分：-4+2+4-12+9-1=-2
+
+无空位罚分的双序列比对
+- 计算效率/计算复杂性：
+	- 用CPU的计算时间和内存占用量来衡量
+		- O( )=…, 时间复杂度
+		- 对于需要解决的问题，其单位数量n运算的时间是一定的f(n)
+		- 如果需要解决的问题的大小与单位数量n的平方成正比，则O(n)=n^2
+		- 对于算法来说：O(logn) > O(n) > O(n^2)
+	- NP难题：无法找到能够在多项式时间复杂度内解决的问题
+		- 一般的，O(nk), 当k≤3 时，为多项式时间，较为容易处理
+		- 当O(nk)= 指数级时间，则难以处理
+- 近似算法/优化算法，求近似解
+
+有空位罚分的双序列比对：递归
+- 时间复杂度：为O(2^2n)，指数增加，无法求最优解
+	- NP-hard问题
+	- 斯特林公式：$x! = $
+	  ![img](https://api2.mubu.com/v3/document_image/f0aeb4ee-a148-4f0f-a699-bf9ed1e3a21f-12251550.jpg)
+- 总分：Score=Σ(AA pair scores) –gap penalty = 15
+  ![img](https://api2.mubu.com/v3/document_image/d4aa63bf-a60f-47fe-8668-734c64a3d9bc-12251550.jpg)
+	- 打分模型
+		- 替代矩阵：
+			- 字符相同：identity
+			- 字符替代：similarity，相似性，氨基酸/碱基之间的替代和突变
+		- 似然性值
 
           - 对于不相关或者随机的模型R，两条序列匹配的概率：![img](https://api2.mubu.com/v3/document_image/ba276dde-9ba7-4d60-a8e7-4e4d5d9052d1-12251550.jpg)
             建立模型：
