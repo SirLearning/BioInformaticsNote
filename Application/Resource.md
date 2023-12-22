@@ -211,19 +211,15 @@ auto_activate_base: false
 ## NCBI
 
 NCBI e-utilities:
-
 - Search, link, and download sequences of genebank programatically
 
 Batch Entrez: 
-
 - 输入一个Entrez accession numbers的文件，会输出下载所有的有关记录
 
 使用：
-
 - 最常研究的DNA功能片段叫什么
 
 NCBI Gene: integrates information from a wide range of species
-
 - Nomenclature：术语
 - Genomic：基因组信息
 - Expression
@@ -255,6 +251,7 @@ NCBI Gene: integrates information from a wide range of species
 	- RefSeq ID: 
 		- NM_xx, NP_xx, NR_xx, NC_xx
 		- 小数点后有数字才是唯一的mRNA序列，这个是版本号
+
 
 | Accession prefix |                        Molecule type                         |                           Comment                            |
 | :--------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
@@ -314,7 +311,7 @@ EBI：维护着世界上最全面的分子数据资源
 
 ## SIB Expasy
 
-## ENSEMBL
+## Ensembl
 
 ## UCSC
 
@@ -353,50 +350,46 @@ EBI：维护着世界上最全面的分子数据资源
 ### 测序 – 注释
 
 注释 Annotation: 用计算机和实验的方法来标注基因组
-
 - Four levels of annotation：预测(where)、相似性(like)、结构域(do)、通路作用(pathway)
 
 Genes: 
-
 - Types:
-  - RNA genes
-  	- tRNA, rRNA, snRNA, snoRNA, microRNA
-  - Protein coding genes:
-    - Prokaryotic gene model 原核基因结构: ORF-genes
-      - small genomes, high gene density: Haemophilus – 85% genic
-      - Operons: one transcript, many genes
-      - No introns: one gene, one protein
-      - Simpler regulatory features
-      - Open reading frames: One ORF per gene(start – stop condon)
-    - Eukaryotic gene model 真核基因结构 : spliced genes
-      - Posttranscriptional modification 后转录修饰: 5’-CAP – polyA tail
-      	- acceptor site – donor site
-      - ORF: mature mRNA, all internal exons
-      	- UTRs: pre-start, post-stop
-      - multiple translates
+	- RNA genes: tRNA, rRNA, snRNA, snoRNA, microRNA
+	- Protein coding genes:
+		- Prokaryotic gene model 原核基因结构: ORF-genes
+			- small genomes, high gene density: Haemophilus – 85% genic
+			- Operons: one transcript, many genes
+			- No introns: one gene, one protein
+			- Simpler regulatory features
+			- Open reading frames: One ORF per gene(start – stop condon)
+		- Eukaryotic gene model 真核基因结构 : spliced genes
+			- Posttranscriptional modification 后转录修饰: 5’-CAP – polyA tail
+				- acceptor site – donor site
+			- ORF: mature mRNA, all internal exons
+				- UTRs: pre-start, post-stop
+			- multiple translates
 - Human gene: 22K genes code for about 100,000 protein
-
-  - Karyotyoe: 46, linear
-  - Genomic sequence features:
-  - seqence type: 
-  	- Repeats(junk DNA): about 50%
-  		- RepeatMaster
-  	- coding genes: 20,338(Ensembl) 1%, 1/3为多拷贝
-  		- transcripts: 200,000
-  		- Consortium(35,000), Celera(30,000), Affymetrix(60,000), Incyte and HGS(over 120,000), GenBank(49,000), UniGene(>89,000)
-  		- intron: 30bp～数十kb不等，内含子的平均长度3413.1bp
-  		- exon: 一般不长于800bp, approximatedly 180,000
-  			- flanking untranslated regions(5’ UTR and 3’ UTR)
-  			- Exon with 3’UTRs str c
-  			- on average 9 exons per gene
-  		- mRNA剪接位点（Splicesites）：GT－AG法则（内含子）
-  			- 5’端大多数是GT（称为donorsite）开始
-  			- 3’端大多数是AG（称为acceptorsite）结束
-  	- Pseudo genes: 14,638 假基因，会对找寻真基因造成困扰
-  	- Non-coding RNAs (ncRNA): tRNA, rRNA, snRNA, snoRNA, miRNA
-  		- tRNASCAN-SE 一个perl脚本，整合了tRNAscan, EufindRNA, Cove三个独立的tRNA检测软件
-  	- Mitochondrial genes: 37(code for 22 tRNAs, 13 proteins and 2 tRNAs)
-  	- microbiome flora
+	- Karyotyoe: 46, linear
+	- Genomic sequence features:
+	- seqence type: 
+		- Repeats(junk DNA): about 50%
+			- RepeatMaster
+		- coding genes: 20,338(Ensembl) 1%, 1/3为多拷贝
+			- transcripts: 200,000
+			- Consortium(35,000), Celera(30,000), Affymetrix(60,000), Incyte and HGS(over 120,000), GenBank(49,000), UniGene(>89,000)
+			- intron: 30bp～数十kb不等，内含子的平均长度3413.1bp
+			- exon: 一般不长于800bp, approximatedly 180,000
+				- flanking untranslated regions(5’ UTR and 3’ UTR)
+				- Exon with 3’UTRs str c
+				- on average 9 exons per gene
+			- mRNA剪接位点（Splicesites）：GT－AG法则（内含子）
+				- 5’端大多数是GT（称为donorsite）开始
+				- 3’端大多数是AG（称为acceptorsite）结束
+		- Pseudo genes: 14,638 假基因，会对找寻真基因造成困扰
+		- Non-coding RNAs (ncRNA): tRNA, rRNA, snRNA, snoRNA, miRNA
+		- tRNASCAN-SE 一个perl脚本，整合了tRNAscan, EufindRNA, Cove三个独立的tRNA检测软件
+	- Mitochondrial genes: 37(code for 22 tRNAs, 13 proteins and 2 tRNAs)
+	- microbiome flora
 
 Karyotype 染色体组
 
@@ -444,7 +437,6 @@ Sequence of an organism's genome:
 ## 基因预测
 
 基因预测（Gene Prediction）
-
 - Ab initio 从头预测: 基于统计规律或信号检测
 	- 编码区域字符上下文特殊
 	- 氨基酸同义密码子选择的偏好性
@@ -463,7 +455,6 @@ Sequence of an organism's genome:
 	- PCR获得的RNA及EST序列：可用于验证基因
 
 基因识别（Gene Identification）
-
 - Promoter,
 - transcription start, 
 - 剪切位点识别: Splice signals(GT, AG)
@@ -475,7 +466,6 @@ Sequence of an organism's genome:
 - 核糖体亚单位：
 
 基因寻找(Gene Finding), Signal detection: : promoters, start/stop condons, splice sites…
-
 - Methods
 	- Consensus strings
 	- Pattern recognition
@@ -496,13 +486,11 @@ Sequence of an organism's genome:
 基因注释（Gene Annotation）
 
 生物学信息：
-
 Genome database: HGP (human genome project)
 
 ## Ensembl: 欧洲
 
 Ensembl Genes: protein/mRNA + sequence assembly
-
 - base: UniPort/Swiss-Prot, UniProt/TrEMBL, NCBI RefSeq
 - Flow
 	- align species-specific protein
@@ -628,15 +616,12 @@ Tools
 		- SNPs, ExAC data
 
 integrative gennomics viewer (IGV): view next generation sequencing data
-
 - loading large datasets (>~100mb) and a large number of samples
 
 ExAC browser (exome aggregation consortium)
-
 - looking up contextual information for NGS data such as allele frequencies
 
 UCSC genome browser
-
 - 找注释，只有很少的 small files
 
 ## UCSC Table Browser
@@ -644,7 +629,6 @@ UCSC genome browser
 作用：advanced searching
 
 Tables – Table brower
-
 - Genomes
 - Data
 - Location
@@ -652,14 +636,12 @@ Tables – Table brower
 - output
 
 create a custom track:
-
 - define track characteristics
 - define browser characteristics
 - format the data
 - upload and view the track in genome browser
 
 track characteristics:
-
 - pairedReads: default view is pack
 - Gap: default view of other tracks set
 
@@ -668,7 +650,6 @@ track characteristics:
 bioenergy research at JGI
 
 program:
-
 - fungal genomics program
 	- MycoCsm
 - metagenomics(宏基因组学) program
@@ -687,11 +668,9 @@ Genome DB for one organism
 ### general protein databases
 
 Expasy (SIB) – UniProtKB/Swiss-Prot
-
 - UniPort knowledgebase – uniprotkb
 
 TrEMBL – translated EMBL – UniProtKB/TrEMBL
-
 - 有 high-quality computationally analyzed records
 - enriched with automatic annotation
 - translations of annotated coding sequences from
@@ -705,7 +684,6 @@ TrEMBL – translated EMBL – UniProtKB/TrEMBL
 	- CCDS
 
 UniProt
-
 - UniPortKB (uniprot knowledge base)
 	- 两类：
 		- uniprotkb/swiss-prot: manually annotated and reviewed
@@ -836,7 +814,6 @@ PPI database:
 在GO的分类中，有41.7%的蛋白功能是未知的
 
 function的定义：
-
 - 结构
 - 细胞学
 - 医学
@@ -893,7 +870,6 @@ function的定义：
 功能信息较少 – 可能序列同源性比对没有结果
 
 domain:
-
 - 真核蛋白含有许多globular domains，可以独立折叠出空间构型
 - 在进化中，这些domains变得统一
 - 使用HMMs来从序列鉴定这些domains
@@ -901,7 +877,6 @@ domain:
 HLH DNA binding domain
 
 定位信号
-
 - SMART – signal transduction domains
 - Pfam – have the most up-to-date domain collection
 - interpro – genome annotion – the domains are annotated with GO terms
@@ -912,7 +887,6 @@ E-value: 越低越好，序列越长越低（不容易碰到）
 ### PFP from motifs
 
 类型：
-
 - transmembrane helices
 - disordered regions 
 - Eukaryotic linear motifs(ELMs)
@@ -1056,7 +1030,6 @@ E-value: 越低越好，序列越长越低（不容易碰到）
 ### GO/pathway/PPI network
 
 gene ontology(GO) – controlled vocabularies
-
 - molecular function – activity – 在GO中不区分发生的背景/时间/环境
 	- catalytic activity
 	- binding activity
@@ -1078,7 +1051,6 @@ gene ontology(GO) – controlled vocabularies
 EcoCyc pathways
 
 PPI network：数据库集合 – database
-
 - HPRD
 - BIND
 - BioGrid
@@ -1088,7 +1060,6 @@ PPI network：数据库集合 – database
 - IntNetDB
 
 STRING network
-
 - 7种不同颜色的线：
 	- 红 – fusion evidence
 	- 绿 – 邻近证据
