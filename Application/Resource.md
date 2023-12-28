@@ -270,16 +270,9 @@ NCBI Gene: integrates information from a wide range of species
 |      YP_^c^      |                           Protein                            | Annotated on genomic molecules without an instantiated transcript record |
 |      XP_^c^      |                           Protein                            |      Predicted model, associated with an XM_ accession       |
 |       WP_        |                           Protein                            |      Non-redundant across multiple strains and species       |
-
-(
-
-^a^ Whole Genome Shotgun sequence data.
-
-^b^ An ordered collection of [WGS sequence](https://www.ncbi.nlm.nih.gov/books/n/handbook/A1237/def-item/app195/) for a genome.
-
-^c^ Computed.
-
-)
+- ^a^ Whole Genome Shotgun sequence data.
+- ^b^ An ordered collection of [WGS sequence](https://www.ncbi.nlm.nih.gov/books/n/handbook/A1237/def-item/app195/) for a genome.
+- ^c^ Computed.
 
 - links to:
 	- HomoloGene
