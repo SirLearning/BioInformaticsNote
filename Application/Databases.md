@@ -2,7 +2,54 @@
 
 ## 数据存储
 
-数据格式：fastq, fasta, sam, bam, vcf, gff, gtf, bed, MAF
+数据格式：sam, bam, vcf, bed, MAF
+- 序列文件：
+	- *fasta* (缩写为*fa*)：存储核酸或氨基酸序列，允许在序列前定义名称和编写注释。 已成为生物信息学的标准格式，格式简单，多种文本处理工具和 Python等脚本语言处理均可对其直接处理
+		- 结构分两行：
+			- 第一行序列标识（ID）
+			- 第二行为序列信息。
+		- fna,ffn,faa都属于fasta格式：
+			- *fna (fasta nucleic acid file)*: 所有核酸序列信息
+			- *ffn (fasta nucleotide coding regions file)*: 所有基因的核酸序列信息
+			- *faa (fasta Amino Acid file)*: 即所有基因对应的蛋白质序列信息
+	- *fastq* (缩写为*fq*)：是一种存储生物序列和对应序列质量，现已成为存储高通量测序数据的事实标准，相当于fasta的plus (+quality) 版
+		- 结构分为四行：
+			- 第一行序列标识（ID）
+			- 第二行为序列信息
+			- 第三行为单独一个+（表示与第一行相同的序列标识，为了节省内存省略为+，此行保留以凑成偶数行保证后续数据处理的便捷性）
+			- 第四行，对应第二行序列的质量值（用ascii码表示，通过质量值公式可以计算其准确度）
+	- *fai*：提供随机访问fasta/fastq文件的接口
+		- 格式：以\t分割，fasta 5列，fastq 6列
+			- NAME: Name of this reference sequence
+			- LENGTH: Total length of this reference sequence, in bases
+			- OFFSET: Offset in the FASTA/FASTQ file of this sequence's first base
+			- LINEBASES: The number of bases on each line
+			- LINEWIDTH: The number of bytes in each line, including the newline
+			- QUALOFFSET: Offset of sequence's first quality within the FASTQ file
+- 基因组注释文件：gff, gtf，高通量测序中对已经map到参考基因组的reads做注释
+	- *GFF (general feature format)*：用于基因组注释，目前是第三版`.gff3`
+		1. seqid ：通常格式染色体ID或是contig ID
+		2. source：注释的来源，一般指明产生此gff3文件的软件或来源数据库。如果未知，`.`代表空
+		3. type： 一般使用gene，repeat_region，exon，CDS，或SO对应编号等
+		4. start：起始位置，从1开始计数（需要注意：bed文件从0开始计数
+		5. end：终止位置
+		6. score：得分，注释信息可能性说明，可以是序列相似性比对时的E-values值或者基因预测是的P-values值。`.`代表空
+		7. strand：`＋`表示正链，`－`表示负链，`.`表示不需要指定正负链，`?` 表示未知
+		8. phase ：仅对编码蛋白质的CDS有效，本列指定下一个密码子开始的位置。可以是0、1或2，表示到达下一个密码子需要跳过碱基个数
+		9. attributes：包含额外属性的列表，格式为`tag=value`，不同属性之间以`;`相隔
+	- *GTF (gene transfer format)*：用于对基因的注释
+		1. seqname: 通常格式染色体ID或是contig ID
+		2. source：注释的来源。，一般指明产生此gff3文件的软件或来源数据库。如果未知，.代表空
+		3. start：起始位置，从1开始计数
+		4. end：终止位置
+		5. feature ：表示基因结构。CDS，start_codon，stop_codon是一定要含有的类型
+		6. score ：得分，注释信息可能性说明，可用`.`代替空
+		7. strand：链的正向与负向，分别用`+`和`-`表示
+		8. frame：密码子偏移，可以是0、1或2
+		9. attributes：必须要有以下两个值：
+			- gene_id value: 表示转录本在基因组上的基因座的唯一的ID。gene_id与value值用空格分开，如果值为空，则表示没有对应的基因
+			- transcript_id value: 预测的转录本的唯一ID。transcript_id与value值用空格分开，空表示没有转录本
+
 参考基因组、基因组注释：
 - 人体基因：数量，分类，基因结构
 - genecard
@@ -415,6 +462,12 @@ Ensembl Genes: protein/mRNA + sequence assembly
 
 
 # Genome
+
+## NCBI genome
+
+直接查询，dataset下载
+
+进入FTP站点查看最全的参考基因组数据：[Index of /genomes (nih.gov)](https://ftp.ncbi.nlm.nih.gov/genomes/)
 
 ## UCSC genome browser
 
