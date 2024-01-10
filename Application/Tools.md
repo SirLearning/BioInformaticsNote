@@ -63,6 +63,12 @@ auto_activate_base: false
 - TreeView  http://taxonomy.zoology.gla.ac.uk/rod/treeview.html, 进化树显示工具
 - Maple Tree  http://mapletree.sourceforge.net/
 
+terminology: 
+- 进化枝 (clade)
+- 系统发育树 (phylogenetic tree)
+- 单系群 (monophyletic group)
+
+
 # 测序数据分析
 
 - 基因预测：
