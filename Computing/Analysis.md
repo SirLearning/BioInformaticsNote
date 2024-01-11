@@ -1,6 +1,19 @@
-k-mer来评估基因组特征，即作为一种Marker
+# 基因组分析
 
-高级分析： WGCNA  , COX回归等生存分析 ，LASSO回归等机器学习
+## *k-mer* analysis
+
+k-mer
+- 概念：substrings of length k contained within a biological sequence
+	- 将reads迭代分成包含k个碱基的序列：长度为L的reads可以分成L-K+1个k-mers
+- 作用：评估基因组特征，即作为一种Marker
+	- 从头组装前的基因组
+
+k-mer analysis
+- 
+
+## 高级分析 
+
+WGCNA  , COX回归等生存分析 ，LASSO回归等机器学习
 
 # 测序分析
 
