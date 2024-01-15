@@ -110,6 +110,10 @@ terminology:
 	  - DAVID
 	  - GSEA
 
+# 基因组分析
+
+seqkit
+
 找变异：GATK, Platypus, VarScan, LoFreq, FreeBayes, SNVer, SAMtools, VarDict, cnvkit, sequenza
 
 计数： bedtools, htseq-counts, FeatureCounts, salmon
