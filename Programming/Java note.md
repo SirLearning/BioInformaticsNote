@@ -34,6 +34,10 @@
 Java platform: my program -> hardware-based program / 机器码 (machine code, native code)
  - Java Virtual Machine
  - Java Application Programming interface (API)
+
+IDE:
+- multiple cursor: [Alt] + [Shift]
+
 # Language
 
 ## Object-Oriented
@@ -244,6 +248,18 @@ arrays: a container object that holds a fixed number of values of a single type
 		- `sort`, `parallelSort`
 		- `stream`
 		- `toString`
+
+list<>: can be modified after declaration
+```
+List<String> list = new ArrayList<String>();  
+list.add("awk -F'\\\\t' '$3 == \\\"repeat_region\\\" {split($9, a, \\\";\\\"); for (i in a) {split(a[i], b, \\\"=\\\"); if (b[1] == \\\"ID\\\") TE_id = b[2];}  print $1, $4-1, $5, TE_id, \\\".\\\", $7}' chr1A.gff3 > annotations.bed\", \n");  
+list.add("gff2bed <JM44.repeat.masked.gff > annotation.bed");  
+list.add("bedtools getfasta -s -fi JM44.repeat.masked.fasta -bed annotation.bed -fo teseq.fasta");  
+list.add("seqkit stats teseq.fasta");  
+list.add("python DataProcessing.py > call.txt");  
+list.add("bedtools merge -i annotation.bed > merge.bed");  
+String[] seqProcessing = list.toArray(new String[list.size()]);
+```
 
 operators: special symbols that perform operations on one, two, or three *operands*, and then return a result, precedence high to low
 1. postfix: `expr++, expr--`
