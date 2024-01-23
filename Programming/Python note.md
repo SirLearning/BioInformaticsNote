@@ -173,3 +173,46 @@ next(iterator[, default])
 	iterator – 可迭代对象
 	default – 可选，用于设置在没有下一个元素时返回该默认值，如果不设置，又没有下一个元素则会触发 StopIteration 异常
 ```
+
+# 数据分析
+
+## 数据文件
+
+xml (Extensible Markup Language) 可拓展标记语言：和json用途相似
+- 特点：简单，易于在任何应用功能程序中读/写
+- 用途：
+	- 数据处理：说明、储存、传输
+	- 作为软件、框架的配置文件：如Android Studio
+		- 配置所开发的项目 (configure your project)
+		- 生成AndroidManifest.xml文件：记录项目名、包名、默认配置好的项目属性、activity属性、后续组件的配置
+- 编码工具：Dom4j, JDom
+- 相比于json流行度更广，描述性更强
+
+json (JavaScript Object Notation) JavaScript对象表示法：一种轻量级的数据交换格式
+- 来源：ECMAScript（一种js规范）的一个子集
+- 特点：
+	- 数据体积小、传输速度快
+	- 理想的数据交换语言：完全独立于任何编程语言的文本格式来存储和表示数据
+		- 数据交互：与JavaScript的交互更加方便，更容易创建JavaScript对象
+	- 扩展性强：没有什么是xml能扩展，json不能的
+	- 解码难度低，几乎为0
+- 编码工具：json.org，不借助工具也可以
+- 数据：两者可相互包含
+	- 数组 `[{}, {}]`：String[], ...
+	- 对象 `{a:, b:}`：str, method, ...
+- 与JavaScript之间的转换
+	- data -> Object
+		- eval()函数：解析json文本数据，将其转成一个JavaScript对象
+	- Object -> data
+		- Struts2组件：将JavaBean对象、集合转成json
+		- SpringMVC：将JavaBean转成json
+	- 开发包：
+
+js (JavaScript)：在网页上执行的代码，脚本文件
+- html文档中：使用`\`嵌入，`<\script>`标签，可包含在多个html文档中实现代码重用
+- *Ajax*：使用JavaScript作为主干来创建Web应用程序
+	- 该程序特点：
+		- 在后台加载数据
+		- 避免整个页面重新加载
+	- 导致：JQuery、Prototype、Dojo等库的创建
+- js文件可包含的内容：变量、运算符、函数 (function)、条件、循环、数组、对象

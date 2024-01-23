@@ -1,3 +1,7 @@
+# Hardware
+
+集群
+
 # 文件
 
 ## 文件管理
@@ -142,6 +146,29 @@ ln -s filename directory
 
 文件在本地和服务器上传输：`scp [local_file] dazheng@159.226.116.203:[server_dictionary]`
 
+# 程序
+
+## 运行
+
+top:
+```
+top //中的%GPU是GPU使用的百分比，203的总线程有160个，根据剩余的百分比来计算出可用的treads数量，一半一个人最多30个线程
+```
+
+ps:
+```
+ps aux | grep dazheng | grep -w T //找出状态为Terminal的程序
+	R: run
+	T: terminal
+	S: sleep
+	Z: zombie，与sleep相似，但是不会再重启了
+```
+
+kill:
+```
+kill -9 [number]
+```
+
 # 命令行的艺术
 
 ## 常用命令
@@ -251,8 +278,6 @@ chmod: 控制档案如何被他人（档案拥有者、群组、其他）调用
 - `r`可读取，`w`可写入，`x`可执行
 	- `X`表示只有当该档案时个子目录或者该档案已经被设定过 为可执行
 - 例子：`chmod g+r, o+r yu1 //使同组和其他人有对yu1可读的权限`
-
-
 
 ## 基础
 

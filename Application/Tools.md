@@ -21,6 +21,8 @@
 		  conda config --show
 		  conda install -y -c bioconda homer
 		  conda install -y -c // bioconda 等任何软件，安装之前先搜索了解软件本身```
+		-  为什么使用conda：create an environment within your computer and install software that can only be run from within one environment
+			- This is particularly useful when running different versions of software and to avoid incompatibility issues
 
 ```
 solver: libmamba
