@@ -85,6 +85,14 @@ kill -stop PID //后台程序暂停
 kill PID //后台程序终止
 ```
 
+perl运行出现问题：
+```
+export LANGUAGE="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export LC_CTYPE="UTF-8"
+export LANG="en_US.UTF-8"
+```
+
 # 系统
 
 ## 设置
@@ -159,9 +167,10 @@ ps:
 ```
 ps aux | grep dazheng | grep -w T //找出状态为Terminal的程序
 	R: run
-	T: terminal
-	S: sleep
+	T: terminal，Stop模式，进程要么处于被调试状态
+	S: sleep, interruptable sleep
 	Z: zombie，与sleep相似，但是不会再重启了
+	D: Uninterruptable sleep
 ```
 
 kill:
@@ -278,6 +287,15 @@ chmod: 控制档案如何被他人（档案拥有者、群组、其他）调用
 - `r`可读取，`w`可写入，`x`可执行
 	- `X`表示只有当该档案时个子目录或者该档案已经被设定过 为可执行
 - 例子：`chmod g+r, o+r yu1 //使同组和其他人有对yu1可读的权限`
+
+## 控制结构
+
+for:
+```
+for 
+do 
+done
+```
 
 ## 基础
 
