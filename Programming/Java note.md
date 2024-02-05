@@ -277,6 +277,12 @@ operators: special symbols that perform operations on one, two, or three *operan
 13. ternary: `? :`
 14. assignment: `= += -= *= /= %= &= ^= |= <<= >>= >>>=`
 
+problem: 
+- unary: +expr ~
+- shift
+- bitwise
+- ternary
+
 expressions, statements, and blocks
 
 control flow statements
