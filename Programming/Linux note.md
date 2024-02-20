@@ -39,7 +39,6 @@ unzip
 
 文件下载：`wget [URL]`
 
-
 ## 文档编辑与查看
 
 排序
@@ -69,28 +68,6 @@ gg //跳转到首行
 less: 文档查看
 ```
 q //离开，相当于自带一个 ':'
-```
-
-## 程序运行
-
-当前运行程序：
-```
-ps -u dazheng //查看
-
-PID    //进程的ID
-TTY    //该进程在那个终端上运行，若与终端无关，则显示? 若为pts/0等，则表示由网络连接主机进程
-TIME      //该进程实际使用CPU运行的时间
-
-kill -stop PID //后台程序暂停
-kill PID //后台程序终止
-```
-
-perl运行出现问题：
-```
-export LANGUAGE="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
-export LC_CTYPE="UTF-8"
-export LANG="en_US.UTF-8"
 ```
 
 # 系统
@@ -177,6 +154,41 @@ kill:
 ```
 kill -9 [number]
 ```
+
+当前运行程序：
+```
+ps -u dazheng //查看
+
+PID    //进程的ID
+TTY    //该进程在那个终端上运行，若与终端无关，则显示? 若为pts/0等，则表示由网络连接主机进程
+TIME      //该进程实际使用CPU运行的时间
+
+kill -stop PID //后台程序暂停
+kill PID //后台程序终止
+```
+
+perl运行出现问题：
+```
+export LANGUAGE="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export LC_CTYPE="UTF-8"
+export LANG="en_US.UTF-8"
+```
+
+## 安装
+
+源码安装程序：3个步骤
+1. 配置configure
+	- `configure`是一个可执行脚本，有很多选项，在待安装的源码路径下使用命令`./configure --help`可以查看详细的选项列表
+	- `./configure`的作用是检测系统配置，如果当前环境满足安装软件的依赖关系，就会生成`makefile`，然后就可以用`make`及`make install`来编译、安装；否则会报错。
+	- 这里的`prefix`就是其中一个选项，作用是配置安装的路径，如果不进行独立配置，安装后
+		1. 可执行文件默认放在`/usr/local/bin`
+		2. 库文件默认放在/usr/local/lib
+		3. 配置文件默认放在/usr/local/etc
+		4. 其他资源文件放在/usr/local/share
+	- 如果配置了--prefix，比如.configure --prefix=/usr/local/test，就可以把所有资源文件放在/usr/local/test路径中，当需要删除此软件，只需要简单的删除该安装目录，就可以把软件卸载干净
+2. 编译make
+3. 安装make install
 
 # 命令行的艺术
 

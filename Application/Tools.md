@@ -33,6 +33,11 @@ restore_free_channel: true
 auto_activate_base: false
 ```
 
+conda problem:
+1. mamba can not work
+	1. figure out in the file: failed
+2. uninstall conda and memba
+
 # 比对
 
 ## 序列比对
