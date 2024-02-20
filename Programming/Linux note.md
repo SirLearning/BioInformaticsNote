@@ -39,6 +39,44 @@ unzip
 
 文件下载：`wget [URL]`
 
+git:
+```
+wget https://github.com/git/git/archive/v2.17.0.tar.gz
+tar -zxvf v2.17.0.tar.gz 
+cd git-2.17.0/
+make prefix=~/program/git all
+make prefix=~/program/git install
+nvim ~/.bashrc
+source ~/.bashrc
+
+git init
+ls .git/
+git config --global user.name dazheng
+git config --global user.email zhengnda@outlook.com
+cat ~/.gitconfig
+l.
+
+git add seqkit.sh
+git commit -m "first try"
+git status
+git log
+
+# rsa 当前不可用
+ssh-keygen -t rsa -C "zhengnda@outlook.com" 
+ssh-keygen -t rsa -C "zhengnda@outlook.com"
+
+# ecdsa可用
+ssh-keygen -t ecdsa -b 521 -C "zhengnda@outlook.com"
+cd .ssh/
+less id_ecdsa.pub 
+
+git clone git@github.com:SirLearning/script.git # ssh密钥连接github
+
+git push
+
+git pull
+```
+
 ## 文档编辑与查看
 
 排序
