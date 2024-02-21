@@ -175,7 +175,7 @@ ln -s filename directory
 
 top:
 ```
-top //中的%GPU是GPU使用的百分比，203的总线程有160个，根据剩余的百分比来计算出可用的treads数量，一半一个人最多30个线程
+top //中的%GPU是GPU使用的百分比，203的总线程有160个，根据剩余的百分比来计算出可用的treads数量，一般一个人最多30个线程
 ```
 
 ps:
@@ -213,20 +213,35 @@ export LC_CTYPE="UTF-8"
 export LANG="en_US.UTF-8"
 ```
 
-## 安装
+## 安装+配置
 
-源码安装程序：3个步骤
-1. 配置configure
+非root用户安装软件：源码安装步骤
+1. 获取源代码；常用`wget/curl`下载，也可以用类似`apt-get source`的方式获取仓库中软件源代码
+2. 解压源代码安装包；例如对于gzip格式的tar包：`tar -zxvf xxx.tar.gz`；
+3. 配置configure
 	- `configure`是一个可执行脚本，有很多选项，在待安装的源码路径下使用命令`./configure --help`可以查看详细的选项列表
 	- `./configure`的作用是检测系统配置，如果当前环境满足安装软件的依赖关系，就会生成`makefile`，然后就可以用`make`及`make install`来编译、安装；否则会报错。
-	- 这里的`prefix`就是其中一个选项，作用是配置安装的路径，如果不进行独立配置，安装后
-		1. 可执行文件默认放在`/usr/local/bin`
-		2. 库文件默认放在/usr/local/lib
-		3. 配置文件默认放在/usr/local/etc
-		4. 其他资源文件放在/usr/local/share
-	- 如果配置了--prefix，比如.configure --prefix=/usr/local/test，就可以把所有资源文件放在/usr/local/test路径中，当需要删除此软件，只需要简单的删除该安装目录，就可以把软件卸载干净
-2. 编译make
-3. 安装make install
+	- 安装的路径配置
+		- 默认：
+			1. 可执行文件默认放在`/usr/local/bin`
+			2. 库文件默认放在`/usr/local/lib`
+			3. 配置文件默认放在`/usr/local/etc`
+			4. 其他资源文件放在`/usr/local/share`
+		- 独立配置：`prefix`，例如 `./configure --prefix=/path/to/bin`，对非root用户很重要
+			- `.configure --prefix=/usr/local/test`：把所有资源文件放在`/usr/local/test`路径中，当需要删除此软件，只需要简单的删除该安装目录，就可以把软件卸载干净
+4. 编译make
+5. 安装make install
+6. 使用`export PATH=/path/to/bin:$PATH`更新PATH变量
+
+配置库文件：
+- 安装软件时：
+	- 在无法自动找到依赖库位置的情况下，用 `--with-xx-dir=xxx` 的形式配置依赖库位置
+	- 如果安装的是动态链接库，则需要更新动态链接库路径： `export LD_LIBRARY_PATH=/path/to/library:$LD_LIBRARY_PATH`
+		- 最好将此命令写在.bashrc文件中，用户下次打开会话时自动执行
+
+Shared Object File (.so)
+- 动态链接库 (Dynamic Link Library, DLL) / 共享对象 (Shared Object, SO)：一种可由多个程序（进程）同时使用的目标文件
+	- “动态”：与静态库不同，共享对象亦可在运行时组装并加载到内存中
 
 # 命令行的艺术
 

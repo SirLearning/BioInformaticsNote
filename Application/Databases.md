@@ -83,8 +83,7 @@
 大型数据库网站：
 1. NCBI
 2. EBI
-3. 
-4. NGDC（BIGD）
+3. NGDC（BIGD）
 
 数据库使用注意事项：
 1. 安全问题：不要将公司或者是私人信息发送到web server
