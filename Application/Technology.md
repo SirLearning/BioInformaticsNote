@@ -195,3 +195,15 @@ dup
 - 按照公司来区分：affymetrix，agilent和illumina，还有罗氏
 - 按照应用来区分，表达芯片，基因分型芯片，拷贝数芯片
 - 其它定制化芯片
+
+# 基因组组装
+
+Oligo-FISH (oligonucleotides fluorescence in situ hybridization): 
+- detection of chromosome variation
+- identification of allopolyploid
+- deciphering of 3D genome structures
+
+# 后处理
+
+基因型填充 (Genotype-Imputation)
+

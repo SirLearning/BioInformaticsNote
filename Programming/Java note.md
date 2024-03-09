@@ -264,18 +264,29 @@ String[] seqProcessing = list.toArray(new String[list.size()]);
 operators: special symbols that perform operations on one, two, or three *operands*, and then return a result, precedence high to low
 1. postfix: `expr++, expr--`
 2. unary: `++expr --expr +expr -expr ~ !`
-3. multiplicative: `* / %`
-4. additive: `+ -`
-5. shift: `<< >> >>>`
-6. relational: `< > <= >= instanceof`
-7. equality: `== !=`
-8. bitwise AND: `&`
-9. bitwise exclusive OR: `^`
-10. bitwise inclusive OR: `|`
-11. logical AND: `&&`
-12. logical OR: `||`
-13. ternary: `? :`
-14. assignment: `= += -= *= /= %= &= ^= |= <<= >>= >>>=`
+	- require only one operand
+	- preform operations a value by one
+	- negating an expression
+	- inverting the value of a boolean
+1. arithmetic:
+	1. multiplicative: `* / %`
+	2. additive: `+ -`
+2. shift: `<< >> >>>`
+3. relational: `< > <= >= instanceof`
+	- type comparison operator: `instanceof`
+		- compares an object to a specified type
+1. equality: `== !=`
+2. bitwise AND: `&`
+3. bitwise exclusive OR: `^`
+4. bitwise inclusive OR: `|`
+5. conditional:
+	1. logical/conditional AND: `&&`
+	2. logical/conditional OR: `||`
+	3. ternary (if-then-else): `? :`
+		- use 3 operands
+6. assignment: `= += -= *= /= %= &= ^= |= <<= >>= >>>=`
+	- used on objects: assign object references
+	- compound assignments
 
 problem: 
 - unary: +expr ~
