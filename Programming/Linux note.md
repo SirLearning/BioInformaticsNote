@@ -130,6 +130,9 @@ ln -s filename directory
 - 文件权限
 - 文件主
 - 文件大小
+```
+du -hd 1
+```
 - 存放位置
 - 建立日期
 
@@ -191,6 +194,8 @@ ps aux | grep dazheng | grep -w T //找出状态为Terminal的程序
 kill:
 ```
 kill -9 [number]
+kill -stop PID //后台程序暂停
+kill PID //后台程序终止
 ```
 
 当前运行程序：
@@ -200,9 +205,6 @@ ps -u dazheng //查看
 PID    //进程的ID
 TTY    //该进程在那个终端上运行，若与终端无关，则显示? 若为pts/0等，则表示由网络连接主机进程
 TIME      //该进程实际使用CPU运行的时间
-
-kill -stop PID //后台程序暂停
-kill PID //后台程序终止
 ```
 
 perl运行出现问题：
