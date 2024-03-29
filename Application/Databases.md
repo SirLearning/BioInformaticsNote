@@ -19,7 +19,7 @@
 			- 第三行为单独一个+（表示与第一行相同的序列标识，为了节省内存省略为+，此行保留以凑成偶数行保证后续数据处理的便捷性）
 			- 第四行，对应第二行序列的质量值（用ascii码表示，通过质量值公式可以计算其准确度）
 	- *fai*：提供随机访问fasta/fastq文件的接口
-		- 格式：以\t分割，fasta 5列，fastq 6列
+		- 格式：以`\t`分割，fasta 5列，fastq 6列
 			- NAME: Name of this reference sequence
 			- LENGTH: Total length of this reference sequence, in bases
 			- OFFSET: Offset in the FASTA/FASTQ file of this sequence's first base
