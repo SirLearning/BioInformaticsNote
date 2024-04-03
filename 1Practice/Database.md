@@ -184,7 +184,7 @@
 				10. 例如：`3M1D2M1I1M`，3个碱基匹配、1个缺失、2个匹配、1个插入、1个匹配
 			7. `RNEXT	字符串	\*|=|[!-()+-<>-~][!-~]*	双端测序中另外一个read比对的参考序列名称` 双端测序中另外一条read比对的参考序列的名称，单端测序此处为`0`，RNEXT（如果不是`*`或者`=`，`*`是完全没有比对上，`=`是完全比对）必须在header section部分`@SQ`中`SN`标签后出现。第3和第7列，可以用来判断某条read是否比对成功到了参考序列上，read1和read2是否比对到同一条参考染色体上
 			8. `PNEXT	整型	[0,2^31-1]	双端测序中另外一个read比对到参考序列中的起始位置坐标` 双端测序中，是指另外一条read比对到参考基因组的位置坐标，最小为`1`（1-based leftmost）
-			9. `TLEN (insert DNA size)	整型	[-2^31+1,2^31-1]	建库时打断的长度` 文库长度
+			9. `TLEN (insert DNA size)	整型	[-2^31+1,2^31-1]	建库时打断的长度` 文库长度/插入片段长度
 			10. `SEQ	字符串	\*[A-Za-z=]+	序列碱基信息（FASTQ中第三行）` read碱基序列，FASTQ的第二行
 			11. `QUAL	字符串	[!-~]+	SEQ字段对应的ASCII码质量字符（FASTQ中第四行）` FASTQ的第四行
 			12. `Optional fields` 可选的自定义区域，可能有多列，多列间使用`\t`隔开，并不是每行都存在这些列，每列格式为TAG:TYPE:VALUE
@@ -208,7 +208,7 @@
 						16. `MD:Z:[0-9]+(([A-Z]|\^[A-Z]+)[0-9]+)*` String for mismatching positions. The MD fifield aims to achieve SNP/indel calling without looking at the reference. For example, a string ‘10A5^AC6’ means from the leftmost reference base in the alignment, there are 10 matches followed by an A on the reference which is difffferent from the aligned read base; the next 5 reference bases are matches followed by a 2bp deletion from the reference; the deleted sequence is AC; the last 6 bases are matches. The MD fifield ought to match the CIGAR string.
 						17. `MQ:i:score` Mapping quality of the mate/next segment.
 						18. `NH:i:count` Number of reported alignments that contain the query in the current record.
-						19. `NM:i:count` Number of difffferences (mismatches plus inserted and deleted bases) between the sequence and reference, counting only (case-insensitive) A, C, G and T bases in sequence and reference as potential matches, with everything else being a mismatch（可以结合CIGAR字段计算错配碱基个数）. Note this means that ambiguity codes in both sequence and reference that match each other, such as ‘N’ in both, or compatible codes such as ‘A’ and ‘R’, are still counted as mismatches. The special sequence base ‘=’ will always be considered to be a match, even if the reference is ambiguous at that point. Alignment reference skips, padding, soft and hard clipping (‘N’, ‘P’, ‘S’ and ‘H’ CIGAR operations) do not count as mismatches, but insertions and deletions count as one mismatch per base.Note that historically this has been ill-defifined and both data and tools exist that disagree with this defifinition.
+						19. `NM:i:count` Number of differences (mismatches plus inserted and deleted bases) between the sequence and reference, counting only (case-insensitive) A, C, G and T bases in sequence and reference as potential matches, with everything else being a mismatch（可以结合CIGAR字段计算错配碱基个数）. Note this means that ambiguity codes in both sequence and reference that match each other, such as ‘N’ in both, or compatible codes such as ‘A’ and ‘R’, are still counted as mismatches. The special sequence base ‘=’ will always be considered to be a match, even if the reference is ambiguous at that point. Alignment reference skips, padding, soft and hard clipping (‘N’, ‘P’, ‘S’ and ‘H’ CIGAR operations) do not count as mismatches, but insertions and deletions count as one mismatch per base.Note that historically this has been ill-defifined and both data and tools exist that disagree with this defifinition.
 						20. `PQ:i:score` Phred likelihood of the template, conditional on the mapping locations of both/all segments being correct. 
 						21. `Q2:Z:qualities` Phred quality of the mate/next segment sequence in the R2 tag. Same encoding as QUAL.
 						22. `R2:Z:bases` Sequence of the mate/next segment in the template. See also Q2 for any associated quality values.
@@ -218,6 +218,8 @@
 						26. `TS:A:strand` Strand (‘+’ or ‘-’) of the transcript to which the read has been mapped.
 						27. `U2:Z:` Phred probability of the 2nd call being wrong conditional on the best being wrong. The same encoding and length as QUAL. See also E2 for associated base calls.
 						28. `UQ:i:` Phred likelihood of the segment, conditional on the mapping being correct.
+						29. `XA:Z:` Alternative hits; format `chr,pos,CIGAR,NM`
+						30. `XS:i:` suboptimal alignment score. If AS and XS are close or equal, then you are getting multiple alignments happening.
 					2. Metadata（这部分内容和 SAM中header section部分相关，描述read测序相关信息）
 						1. `RG:Z:readgroup` The read group to which the read belongs. If @RG headers are present, then readgroup must match the RG-ID fifield of one of the headers.
 						2. `LB:Z:library` The library from which the read has been sequenced. If @RG headers are present, then library must match the RG-LB fifield of one of the headers.
