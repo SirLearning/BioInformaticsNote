@@ -14,7 +14,19 @@
 			- *faa (fasta Amino Acid file)*: 即所有基因对应的蛋白质序列信息
 	- *fastq* (缩写为*fq*)：是一种存储生物序列和对应序列质量，现已成为存储高通量测序数据的事实标准，相当于fasta的plus (+quality) 版
 		- 结构分为四行：
-			- 第一行序列标识（ID）
+			- 第一行序列标识 (ID)：每部分信息之间用`:`分隔开，如 `@SIM:1:FCX:1:15:6329:1045:GATTACT+GTCTTAAC 1:N:0:ATCCGA`
+				- `SIM` instrument ID（即测序仪的硬件ID）  
+				- `1` run number（该测序仪上的测序顺位数字？）  
+				- `FCX` followcell ID（测序芯片的ID）  
+				- `1` lane ID（第几条lane）  
+				- `15` Tile number（Tile数字）  
+				- `6329` X coordinate of cluster（桥式PCR生成的簇的横坐标）  
+				- `1045` Y coordinate of cluster（簇的纵坐标）  
+				- `GATTACT+GTCTTAAC` read1 UMI ID + read2 UMI ID（拆分数据的UMI序列）  
+				- `1` read number，1 表示read1，2表示read2  
+				- `N` Y if the read is filtered (did not pass), N otherwise.（N表示合格，Y不合格）  
+				- `0` control number（在HiSeq X and NextSeq平台上总是为0）  
+				- `ATCCGA` index（拆分数据用的index序列）
 			- 第二行为序列信息
 			- 第三行为单独一个+（表示与第一行相同的序列标识，为了节省内存省略为+，此行保留以凑成偶数行保证后续数据处理的便捷性）
 			- 第四行，对应第二行序列的质量值（用ascii码表示，通过质量值公式可以计算其准确度）
@@ -205,7 +217,7 @@
 						13. `HI:i:i` Query hit index, indicating the alignment record is the i-th one stored in SAM.
 						14. `IH:i:count` Number of alignments stored in the fifile that contain the query in the current record.
 						15. `MC:Z:cigar` CIGAR string for mate/next segment.
-						16. `MD:Z:[0-9]+(([A-Z]|\^[A-Z]+)[0-9]+)*` String for mismatching positions. The MD fifield aims to achieve SNP/indel calling without looking at the reference. For example, a string ‘10A5^AC6’ means from the leftmost reference base in the alignment, there are 10 matches followed by an A on the reference which is difffferent from the aligned read base; the next 5 reference bases are matches followed by a 2bp deletion from the reference; the deleted sequence is AC; the last 6 bases are matches. The MD fifield ought to match the CIGAR string.
+						16. `MD:Z:[0-9]+(([A-Z]|\^[A-Z]+)[0-9]+)*` String for mismatching positions. The MD fifield aims to achieve SNP/indel calling without looking at the reference. For example, a string `10A5^AC6` means from the leftmost reference base in the alignment, there are 10 matches followed by an A on the reference which is difffferent from the aligned read base; the next 5 reference bases are matches followed by a 2bp deletion from the reference; the deleted sequence is AC; the last 6 bases are matches. The MD fifield ought to match the CIGAR string.
 						17. `MQ:i:score` Mapping quality of the mate/next segment.
 						18. `NH:i:count` Number of reported alignments that contain the query in the current record.
 						19. `NM:i:count` Number of differences (mismatches plus inserted and deleted bases) between the sequence and reference, counting only (case-insensitive) A, C, G and T bases in sequence and reference as potential matches, with everything else being a mismatch（可以结合CIGAR字段计算错配碱基个数）. Note this means that ambiguity codes in both sequence and reference that match each other, such as ‘N’ in both, or compatible codes such as ‘A’ and ‘R’, are still counted as mismatches. The special sequence base ‘=’ will always be considered to be a match, even if the reference is ambiguous at that point. Alignment reference skips, padding, soft and hard clipping (‘N’, ‘P’, ‘S’ and ‘H’ CIGAR operations) do not count as mismatches, but insertions and deletions count as one mismatch per base.Note that historically this has been ill-defifined and both data and tools exist that disagree with this defifinition.

@@ -1,4 +1,4 @@
-
+   
 # 生物序列分析
 
 History:
@@ -43,7 +43,7 @@ History:
 - 工具：
 	- Dotlet JS https://dotlet.vital-it.ch/
 	- https://myhits.isb-sib.ch/cgi-bin/dotlet
-	- http://www.bioinformatics.nl/cgi-bin/emboss/dotmatcher
+	- http://www.bioinformatics.nl/cgi-bin/emboss/dotmatche
 - 对比结果：
 	- 相同序列比对：
 		- 重复序列
