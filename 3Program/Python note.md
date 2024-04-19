@@ -223,3 +223,6 @@ pandas中loc和iloc的区别
 
 # matplotlib
 
+- [ ] data如何直接使用
+- [ ] ax的subplot是如何使用的
+- [ ] sns外还有什么画图的包
