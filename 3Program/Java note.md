@@ -29,6 +29,7 @@
 	- [ ] Members
 	- [ ] Arrays and Enumerated Types
 
+
 # Java technology
 
 Java platform: my program -> hardware-based program / 机器码 (machine code, native code)
