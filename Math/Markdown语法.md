@@ -51,7 +51,7 @@
 ∥	parallel
 ≈	approx
 ≅	cong
-≠	eq	不等于
+≠	neq	不等于
 ≐	doteq
 ∝	propto
 ⋈	Bowtie
@@ -60,6 +60,8 @@
 &frown;	frown
 ⊢	vdash
 ⊣	dashv
+$\infty$ 无穷
+$\pm$ 加减
 
 # 数学符号：$ $
 
@@ -115,8 +117,6 @@
 
 虚数，符号：\jmath，如：$\jmath$
 
-
-
 数学符号，符号\hat{a}，如：$\hat{a}$
 
 数学符号，符号\check{a}，如：$\check{a}$
@@ -147,8 +147,6 @@ $\widehat{a}$ (线性回归，直线方程) y尖 a ^
 
 $\widetilde{a}$ 颚化符号 等价无穷小 a ~ 
 
-
-
 上箭头，符号：\uparrow，如：$\uparrow$
 
 上箭头，符号：\Uparrow，如：$\Uparrow$
@@ -164,8 +162,6 @@ $\widetilde{a}$ 颚化符号 等价无穷小 a ~
 右箭头，符号：\rightarrow，如：$\rightarrow$
 
 右箭头，符号：\Rightarrow，如：$\Rightarrow$
-
-
 
 底端对齐的省略号，符号：\ldots，如：$1,2,\ldots,n$
 
@@ -203,12 +199,15 @@ n次根号，符号：\sqrt[n]{}
 
 微分运算，符号：\partial，如：$\frac{\partial x}{\partial y}$
 
-矩阵表示，符号：\begin{matrix} \end{matrix}，如：$\left[ \begin{matrix}	
+矩阵表示，符号：\begin{matrix} \end{matrix}，如：
+$$
+\left[ \begin{matrix}	
 11 & 12 & \cdots & 1n \\
 21 & 22 &\cdots & 2n \\
 \vdots & \vdots & \ddots & \vdots \\
 m1 & m2 & \cdots & mn
-\end{matrix} \right]$
+\end{matrix} \right]
+$$
 
 乘号 \times
 
@@ -222,7 +221,7 @@ N元乘积 ∏ i = 0	\prod\_{i=0}^n	$\prod_{i=0}^n$
 
 ∀ $\forall$
 
-∃ $\exists$ 
+∃ $\exists$
 
 ∼ $\sim$ 
 
@@ -231,3 +230,4 @@ N元乘积 ∏ i = 0	\prod\_{i=0}^n	$\prod_{i=0}^n$
 多符号上标箭头	\overrightarrow{V_0V_1}	$$\overrightarrow{V_0V_1}$$
 
 向量公式	f(\mathbf{x})=\mathbf{w}^T\mathbf{x}	$$f(\mathbf{x})=\mathbf{w}^T\mathbf{x}$$ 
+复合函数：$f \circ f^{-1} = f(f^{-1}(x))$
