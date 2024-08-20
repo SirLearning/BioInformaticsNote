@@ -25,6 +25,14 @@ XXX为创建环境的名称，python= 这里我选择用python3.9.
 
 ## Python
 
+mac osx-arm64 不支持 python2.7的问题：
+```
+conda create -n p27
+conda activate p27
+conda config --env --set subdir osx-64
+conda install python=2.7
+```
+
 语言：
 - 内置函数、保留字
 - 错误：每条命令都会得到不同的错误消息
