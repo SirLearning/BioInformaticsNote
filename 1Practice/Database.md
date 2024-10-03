@@ -182,8 +182,8 @@
 			3. `RNAME (Reference sequence NAME of the alignment)	字符串	\*|[!-()+-<>-~][!-~]*	参考基序列的名称` 比对时参考序列的名称，一般是染色体号（如果物种为人，则为`chr1~chr22，chrX，chrY，chrM`）。RNAME（如果不是`*`）必须在header section部分`@SQ`中`SN`标签后出现；如果没有比对上参考基因组，用`*`来表示。如果RNAME值是`*`，则后面POS和CIGAR也将没有值
 			4. `POS	整型	[0,2^31-1]	序列比对到参考序列中的起始位置坐标（以1为起始）` 该read比对到参考基因组的位置坐标，最小为`1`（1-based leftmost）；该read如果没有比对上参考序列，则RNAME和CIGAR也无值
 			5. `MAPQ (MAPing Quality)	整型	[0,2^8-1]	比对质量值` 对应参考序列的质量，比对的质量分数，越高说明该read比对到参考基因组上的位置越准确；其值等于`-10 lg Probility （错配概率）`，得出值后四舍五入的整数就是MAPQ值。如果该值是`255`，则说明对应质量无效
-				- 例如，MAPQ为`20`，即Q20，错误率为0.01，20 = -10log10(0.01) = -10*(-2)
-			6. `CIGAR (Compact Idiosyncratic Gapped Alignment Representation)	字符串	\*|([0-9]+[MIDNSHPX=])+	CIGAR字符串` 
+					- 例如，MAPQ为`20`，即Q20，错误率为0.01，20 = -10log10(0.01) = -10*(-2)
+			1. `CIGAR (Compact Idiosyncratic Gapped Alignment Representation)	字符串	\*|([0-9]+[MIDNSHPX=])+	CIGAR字符串` 
 				1. `M	0	match	read	ref`
 				2. `I	1	insertion	read	ref`
 				3. `D	2	deletion	no	ref`
@@ -194,12 +194,12 @@
 				8. `=	7	该read完全匹配	read	ref`
 				9. `X	8	该read不匹配	read	ref`
 				10. 例如：`3M1D2M1I1M`，3个碱基匹配、1个缺失、2个匹配、1个插入、1个匹配
-			7. `RNEXT	字符串	\*|=|[!-()+-<>-~][!-~]*	双端测序中另外一个read比对的参考序列名称` 双端测序中另外一条read比对的参考序列的名称，单端测序此处为`0`，RNEXT（如果不是`*`或者`=`，`*`是完全没有比对上，`=`是完全比对）必须在header section部分`@SQ`中`SN`标签后出现。第3和第7列，可以用来判断某条read是否比对成功到了参考序列上，read1和read2是否比对到同一条参考染色体上
-			8. `PNEXT	整型	[0,2^31-1]	双端测序中另外一个read比对到参考序列中的起始位置坐标` 双端测序中，是指另外一条read比对到参考基因组的位置坐标，最小为`1`（1-based leftmost）
-			9. `TLEN (insert DNA size)	整型	[-2^31+1,2^31-1]	建库时打断的长度` 文库长度/插入片段长度
-			10. `SEQ	字符串	\*[A-Za-z=]+	序列碱基信息（FASTQ中第三行）` read碱基序列，FASTQ的第二行
-			11. `QUAL	字符串	[!-~]+	SEQ字段对应的ASCII码质量字符（FASTQ中第四行）` FASTQ的第四行
-			12. `Optional fields` 可选的自定义区域，可能有多列，多列间使用`\t`隔开，并不是每行都存在这些列，每列格式为TAG:TYPE:VALUE
+			2. `RNEXT	字符串	\*|=|[!-()+-<>-~][!-~]*	双端测序中另外一个read比对的参考序列名称` 双端测序中另外一条read比对的参考序列的名称，单端测序此处为`0`，RNEXT（如果不是`*`或者`=`，`*`是完全没有比对上，`=`是完全比对）必须在header section部分`@SQ`中`SN`标签后出现。第3和第7列，可以用来判断某条read是否比对成功到了参考序列上，read1和read2是否比对到同一条参考染色体上
+			3. `PNEXT	整型	[0,2^31-1]	双端测序中另外一个read比对到参考序列中的起始位置坐标` 双端测序中，是指另外一条read比对到参考基因组的位置坐标，最小为`1`（1-based leftmost）
+			4. `TLEN (insert DNA size)	整型	[-2^31+1,2^31-1]	建库时打断的长度` 文库长度/插入片段长度
+			5. `SEQ	字符串	\*[A-Za-z=]+	序列碱基信息（FASTQ中第三行）` read碱基序列，FASTQ的第二行
+			6. `QUAL	字符串	[!-~]+	SEQ字段对应的ASCII码质量字符（FASTQ中第四行）` FASTQ的第四行
+			7. `Optional fields` 可选的自定义区域，可能有多列，多列间使用`\t`隔开，并不是每行都存在这些列，每列格式为TAG:TYPE:VALUE
 				1. `TAG` 为两个大写字母，可分为6类：
 					1. Additional Template and Mapping data（一些比对信息）
 						1. `AM:i:score` The smallest template-independent mapping quality of any segment in the same template as this read. (See also SM.)
