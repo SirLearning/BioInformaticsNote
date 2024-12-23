@@ -4,7 +4,7 @@
 
 数据格式：sam, bam, vcf, MAF
 - 序列文件：
-	- *fasta* (缩写为*fa*)：存储核酸或氨基酸序列，允许在序列前定义名称和编写注释。 已成为生物信息学的标准格式，格式简单，多种文本处理工具和 Python等脚本语言处理均可对其直接处理
+	- *fasta* (缩写为*fa*)：存储核酸或氨基酸序列，允许在序列前定义名称和编写注释。
 		- 结构分两行：
 			- 第一行序列标识（ID）
 			- 第二行为序列信息。
@@ -12,14 +12,14 @@
 			- *fna (fasta nucleic acid file)*: 所有核酸序列信息
 			- *ffn (fasta nucleotide coding regions file)*: 所有基因的核酸序列信息
 			- *faa (fasta Amino Acid file)*: 即所有基因对应的蛋白质序列信息
-	- *fastq* (缩写为*fq*)：是一种存储生物序列和对应序列质量，现已成为存储高通量测序数据的事实标准，相当于fasta的plus (+quality) 版
+	- *fastq* (缩写为*fq*)：存储生物序列和对应序列质量，相当于fasta的plus (+quality) 版
 		- 结构分为四行：
 			- 第一行序列标识 (ID)：每部分信息之间用`:`分隔开，如 `@SIM:1:FCX:1:15:6329:1045:GATTACT+GTCTTAAC 1:N:0:ATCCGA`
 				- `SIM` instrument ID（即测序仪的硬件ID）  
-				- `1` run number（该测序仪上的测序顺位数字？）  
-				- `FCX` followcell ID（测序芯片的ID）  
+				- `1` run number（该测序仪上的测序顺位数字）
+				- `FCX` followcell ID（测序芯片的ID）
 				- `1` lane ID（第几条lane）  
-				- `15` Tile number（Tile数字）  
+				- `15` Tile number（Tile数字）
 				- `6329` X coordinate of cluster（桥式PCR生成的簇的横坐标）  
 				- `1045` Y coordinate of cluster（簇的纵坐标）  
 				- `GATTACT+GTCTTAAC` read1 UMI ID + read2 UMI ID（拆分数据的UMI序列）  
@@ -31,7 +31,7 @@
 			- 第三行为单独一个+（表示与第一行相同的序列标识，为了节省内存省略为+，此行保留以凑成偶数行保证后续数据处理的便捷性）
 			- 第四行，对应第二行序列的质量值（用ascii码表示，通过质量值公式可以计算其准确度）
 	- *fai*：提供随机访问fasta/fastq文件的接口
-		- 格式：以`\t`分割，fasta 5列，fastq 6列
+		- 格式：以`\t`分割（fasta 5列，fastq 6列）
 			- NAME: Name of this reference sequence
 			- LENGTH: Total length of this reference sequence, in bases
 			- OFFSET: Offset in the FASTA/FASTQ file of this sequence's first base
@@ -183,7 +183,7 @@
 			4. `POS	整型	[0,2^31-1]	序列比对到参考序列中的起始位置坐标（以1为起始）` 该read比对到参考基因组的位置坐标，最小为`1`（1-based leftmost）；该read如果没有比对上参考序列，则RNAME和CIGAR也无值
 			5. `MAPQ (MAPing Quality)	整型	[0,2^8-1]	比对质量值` 对应参考序列的质量，比对的质量分数，越高说明该read比对到参考基因组上的位置越准确；其值等于`-10 lg Probility （错配概率）`，得出值后四舍五入的整数就是MAPQ值。如果该值是`255`，则说明对应质量无效
 					- 例如，MAPQ为`20`，即Q20，错误率为0.01，20 = -10log10(0.01) = -10*(-2)
-			1. `CIGAR (Compact Idiosyncratic Gapped Alignment Representation)	字符串	\*|([0-9]+[MIDNSHPX=])+	CIGAR字符串` 
+			6. `CIGAR (Compact Idiosyncratic Gapped Alignment Representation)	字符串	\*|([0-9]+[MIDNSHPX=])+	CIGAR字符串` 
 				1. `M	0	match	read	ref`
 				2. `I	1	insertion	read	ref`
 				3. `D	2	deletion	no	ref`
@@ -194,12 +194,12 @@
 				8. `=	7	该read完全匹配	read	ref`
 				9. `X	8	该read不匹配	read	ref`
 				10. 例如：`3M1D2M1I1M`，3个碱基匹配、1个缺失、2个匹配、1个插入、1个匹配
-			2. `RNEXT	字符串	\*|=|[!-()+-<>-~][!-~]*	双端测序中另外一个read比对的参考序列名称` 双端测序中另外一条read比对的参考序列的名称，单端测序此处为`0`，RNEXT（如果不是`*`或者`=`，`*`是完全没有比对上，`=`是完全比对）必须在header section部分`@SQ`中`SN`标签后出现。第3和第7列，可以用来判断某条read是否比对成功到了参考序列上，read1和read2是否比对到同一条参考染色体上
-			3. `PNEXT	整型	[0,2^31-1]	双端测序中另外一个read比对到参考序列中的起始位置坐标` 双端测序中，是指另外一条read比对到参考基因组的位置坐标，最小为`1`（1-based leftmost）
-			4. `TLEN (insert DNA size)	整型	[-2^31+1,2^31-1]	建库时打断的长度` 文库长度/插入片段长度
-			5. `SEQ	字符串	\*[A-Za-z=]+	序列碱基信息（FASTQ中第三行）` read碱基序列，FASTQ的第二行
-			6. `QUAL	字符串	[!-~]+	SEQ字段对应的ASCII码质量字符（FASTQ中第四行）` FASTQ的第四行
-			7. `Optional fields` 可选的自定义区域，可能有多列，多列间使用`\t`隔开，并不是每行都存在这些列，每列格式为TAG:TYPE:VALUE
+			7. `RNEXT	字符串	\*|=|[!-()+-<>-~][!-~]*	双端测序中另外一个read比对的参考序列名称` 双端测序中另外一条read比对的参考序列的名称，单端测序此处为`0`，RNEXT（如果不是`*`或者`=`，`*`是完全没有比对上，`=`是完全比对）必须在header section部分`@SQ`中`SN`标签后出现。第3和第7列，可以用来判断某条read是否比对成功到了参考序列上，read1和read2是否比对到同一条参考染色体上
+			8. `PNEXT	整型	[0,2^31-1]	双端测序中另外一个read比对到参考序列中的起始位置坐标` 双端测序中，是指另外一条read比对到参考基因组的位置坐标，最小为`1`（1-based leftmost）
+			9. `TLEN (insert DNA size)	整型	[-2^31+1,2^31-1]	建库时打断的长度` 文库长度/插入片段长度
+			10. `SEQ	字符串	\*[A-Za-z=]+	序列碱基信息（FASTQ中第三行）` read碱基序列，FASTQ的第二行
+			11. `QUAL	字符串	[!-~]+	SEQ字段对应的ASCII码质量字符（FASTQ中第四行）` FASTQ的第四行
+			12. `Optional fields` 可选的自定义区域，可能有多列，多列间使用`\t`隔开，并不是每行都存在这些列，每列格式为TAG:TYPE:VALUE
 				1. `TAG` 为两个大写字母，可分为6类：
 					1. Additional Template and Mapping data（一些比对信息）
 						1. `AM:i:score` The smallest template-independent mapping quality of any segment in the same template as this read. (See also SM.)
@@ -210,7 +210,7 @@
 						6. `2CP:i:pos` Leftmost coordinate of the next hit.
 						7. `E2:Z:bases` The 2nd most likely base calls. Same encoding and same length as SEQ. See also U2 for associated quality values.
 						8. `FI:i:int` The index of segment in the template.
-						9. `FS:Z:str` Segment suffiffiffix.
+						9. `FS:Z:str` Segment suffix.
 						10. `H0:i:count` Number of perfect hits.
 						11. `H1:i:count` Number of 1-difffference hits (see also NM).
 						12. `H2:i:count` Number of 2-difffference hits.
