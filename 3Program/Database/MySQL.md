@@ -1,4 +1,4 @@
-[[BioInformaticsNote/4Database/README|README]]
+[[BioInformaticsNote/3Program/Database/README|README]]
 
 MySQL 8 的新特性
 - NoSQL
@@ -187,5 +187,26 @@ MySQL 语句：
 	- `limit` 子句：被删除的行的最大值
 
 表的数据完整性
+- 非空约束`null | not null`
+- 主键约束
+	- 创建表时
+	- 修改表的主键 `alter`
+- 外键约束
+	- 参照完整性约束：子表修改外键数据时，一定是存在与父表中的主键
+	- 外键声明
+	- 参照完整性定义：`delete` `update`
+		- `restrict`
+		- `cascade`
+		- `no action`：和 `restric` 一样
+	- 对已有的表添加外键
+	- 创建表时创建外键
+- 检查约束 `check`
+- 唯一性约束 `unique`
+	- 可以有多个
+	- 使用 `null | not null` 声明时，可以取null
+	- 和创建 `primary key` 时产生 `primary key` 约束一样，会自动产生 `unique` 索引
 
+# 数据检索
+
+基本查询语句
 

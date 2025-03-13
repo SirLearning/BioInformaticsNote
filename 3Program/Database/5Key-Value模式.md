@@ -1,4 +1,4 @@
-[[BioInformaticsNote/4Database/README|README]]
+[[BioInformaticsNote/3Program/Database/README|README]]
 
 # 互联网发展趋势和对数据管理模式的要求
 

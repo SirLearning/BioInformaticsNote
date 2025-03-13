@@ -2,8 +2,6 @@
 
 [[library]]
 
-
-
 # To do list
 
 - [x] Getting Started
@@ -41,6 +39,10 @@
 Java platform: my program -> hardware-based program / 机器码 (machine code, native code)
  - Java Virtual Machine
  - Java Application Programming interface (API)
+
+![[Pasted image 20250309144233.png]]
+
+![[Pasted image 20250309145127.png]]
 
 IDE:
 - multiple cursor: [Alt] + [Shift]
