@@ -19,5 +19,5 @@ Emacs 对 Vim 用户也十分友好，有一个叫 [evil](https://github.com/ema
 
 ## 关于键位映射
 
-Emacs 的唯一缺点便是对 Ctrl 键的使用过多，对小手指不是很友好，强烈建议更改 Ctrl 键的键盘映射。更改映射的方式与 [Vim 教程](Vim.md)中的方法相同，这里不做赘述。
+Emacs 的唯一缺点便是对 Ctrl 键的使用过多，对小手指不是很友好，强烈建议更改 Ctrl 键的键盘映射。更改映射的方式与 [Vim 教程](BioInformaticsNote/refer/SelfLearning/必学工具/Vim.md)中的方法相同，这里不做赘述。
 
