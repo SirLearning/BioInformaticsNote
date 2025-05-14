@@ -1,6 +1,6 @@
 生物信息数据格式：`.sam .bam .vcf`等
 
-## 序列
+## 序列 (fa fq fai)
 
 *fasta* (缩写为*fa*)：存储核酸或氨基酸序列，允许在序列前定义名称和编写注释。
 - 结构分两行：
@@ -40,7 +40,7 @@
 	- QUALOFFSET: Offset of sequence's first quality within the FASTQ file
 
 
-## 注释
+## 注释 (gff gtf bed)
 
 `.gff .gtf`，高通量测序中对已经map到参考基因组的reads做注释
 
@@ -88,7 +88,7 @@
 	12. blockStarts：blocks (exons)起始位置列表，逗号分隔，对应于_blockCount_
 		- 这个起始位置是与_chromStart_的一个相对位置
 
-## 变异
+## 变异 (vcf)
 
 - *VCF (variant call format)*：用于SNV (single nucleotide variations)，INDEL (insertions & deletions), CNV (copy number variation), SV (structural variant)
 	1. CHROM：染色体号，注意不需要前缀`chr`: `1A`
@@ -123,7 +123,7 @@
 		8. `PS	Phase Set	描述同一样本中基因型相位的信息`
 	10. SAMPLEs：可选，各个样本的值，来自`BAM`文件`@RG`的`SM`标签；一般每个样本对应一列，因此该文件会超过十列；每个样本会与 FORMAT 列的格式一一对应，不同格式用`:`分隔: `0/0:5,0:0,2,10  0/0:4,0:0,1,8   0/0:4,0:0,1,8   0/0:3,0:0,   1,6   ./.     0/0:4,0:0,1,8   ./.     0/0:3,0:0,1,6   0/0:7,0:0,2,13`
 
-## 比对
+## 比对 (sam bam)
 
 - *SAM (sequence alignment/map format)*：存储测序数据和参考基因组比对结果的文件，每行以table键分割
 	- 标头部分 (header section)：SAM/BAM的注释部分

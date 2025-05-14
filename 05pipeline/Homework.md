@@ -6,20 +6,17 @@ a quantitatives(数量的) multivariate(多元) model of human dendritic(树状)
 ## abstract
 
 dataset generation:
-
 - distinct DC(dendritic cell) conditions – 
 - DC communication molecules – 
 - CD4 T cells – 
 - T helper cytokines
 
 modeling:
-
 - $Y=XB+E$
 - $\forall i\in\{1,...,n\},\\\{E_{i,1},...,E_{i,q}\}\sim^{lid}\sim N(0,\sum_q)$
 - prediction: DC/T cell molecular associations
 
 validation:
-
 - computional validation:
 	- stability selection
 	- cross validation
@@ -102,12 +99,10 @@ cibersort: 一种可以使用基因表达数据来估计混合细胞群中成员
 		- $RMSE$：实际值与预测值的均方根误差
 
 CIBERSORTx 工作流涉及多种方法
-
 1. 首先从少量的组织样本中获取不同细胞亚群的基因表达特征
 2. 然后该结果系统用于组织样本的细胞丰度和基因表达分析
 
 步骤：
-
 1. 单个细胞或细胞亚群的转录组分析：
 	- 获得特定细胞类型的标志基因矩阵，用于区分特定组织类型中特定的细胞子集；
 2. 将特征矩阵应用于整个组织的 RNA 表达数据，以推断特定细胞类型的比例；
@@ -117,7 +112,6 @@ CIBERSORTx 工作流涉及多种方法
 ### R代码实现
 
 反卷积算法
-
 - 实际：已知样品各基因表达浓度，又知各细胞类型的表达浓度，从而推测各样品中的细胞丰度 – T = C*P – 已知T和C求P
 	- 表达矩阵(expression) – T (gene , sample)
 	- 参考矩阵(reference) – C (gene , cell type)
@@ -134,7 +128,6 @@ CIBERSORTx 工作流涉及多种方法
 ### CoreAlg
 
 参数传入
-
 ```R
 #' Core algorithm
 #' @param X cell-specific gene expression
@@ -154,7 +147,6 @@ CIBERSORTx 工作流涉及多种方法
 二维矩阵LM22(m,n) – 将每一行映射到一个n维空间中 – 长度为m的向量
 
 支持向量回归函数: $f(x)=w^Tx+b$
-
 - 回归超平面 – 使靠超平面最远的样本点之间的间隔最小的那个超平面
 	- SVR对间隔加以限制：所有的样本点，回归模型预测值与y真实值的偏差必须<=&epsilon;：
 		- &epsilon;管道：
@@ -166,7 +158,6 @@ CIBERSORTx 工作流涉及多种方法
 - 间隔下边界
 
 代码：
-
 ```R
 CoreAlg <- function(x,y){
     #1. try different values of nu 调试不同nu值建立三种不同的模型
@@ -219,7 +210,6 @@ CoreAlg <- function(x,y){
 ### doPerm
 
 参数传入
-
 ```R
 #' do permutations
 #' @param perm Number of permutations
@@ -229,7 +219,6 @@ CoreAlg <- function(x,y){
 ```
 
 置换检验，计算p值，产生背景R值
-
 ```R
 doPerm <- function(perm,X,y){
     itor <-  1
@@ -264,7 +253,6 @@ doPerm <- function(perm,X,y){
 ### Main Function
 
 参数传入
-
 ```R
 #' Main functions
 #' @param sig_matrix file path to gene expression from isolated cells
@@ -275,7 +263,6 @@ doPerm <- function(perm,X,y){
 ```
 
 代码：
-
 ```R
 # 1. 数据预处理
     #read in data 输入数据
@@ -373,12 +360,10 @@ doPerm <- function(perm,X,y){
 ### 线性回归
 
 线性模型：通过属性的线性组合来进行预测的函数，预测实值输出标记
-
 - 一般向量形式$f(\mathbf{x})=\mathbf{w}^T\mathbf{x}+b$
 - 最小二乘法 – 试图找到一条直线，使所有样本到直线上的欧氏距离之和最小 – 参数估计
 
 分类任务：找一个单调可微函数，将分类任务的真实标记$y$与线性回归模型的预测值联系起来
-
 - 二分类任务：将产生的预测值实值转为0/1
 	- 单位阶跃函数 – 不连续
 	- 对数几率函数(logistic function): $y=\frac{1}{1+e^{-z}}$ – Sigmoid函数
@@ -393,12 +378,10 @@ doPerm <- function(perm,X,y){
 ### 聚类
 
 分析基因功能：
-
 1. 将样本点都表现为gene表达量的距离点，即距离矩阵，来反映两个基因之间有什么样的距离。
 2. 聚类的目的是将不同的基因分到不同的类中，距离是分类的一个依据 – 如何得到距离(距离就反映了所要的表达差距？)
 
 我们是要怎么分类？我们的分类是对不同的表达数据进行分类：
-
 - 变量：
 	- 样本
 	- gene表达量
@@ -411,13 +394,9 @@ doPerm <- function(perm,X,y){
 特征空间上间隔最大的线性分类器 – 该线到最近的样本点距离最大 – 二维无法的话，就高维平面
 
 基于训练集$D$ – 样本空间中 – 划分超平面：$\mathbf{w}^T\mathbf{x}+b=0$
-
 - 法向量：$\mathbf{w}$ – 超平面方向
-
 - 位移项：$b$ – 超平面与原点的距离
-
 - 任意点$\mathbf{x}$到超平面$(\mathbf{w},b)$之间的距离：$r=\frac{|\mathbf{w}^T\mathbf{x}+b|}{\|\mathbf{w}\|}$
-
 - 分类结果：
 	$$
 	\mathbf{w}^T\mathbf{x}_i+b\geq+1,\,\,\mathbf{y_i}=+1;
@@ -426,9 +405,7 @@ doPerm <- function(perm,X,y){
 	$$
 	
 - 支持向量：距离超平面最近的几个训练样本点使式中等号成立
-
 	- 两个异类支持向量到超平面的距离之和为：$\gamma=\frac{2}{\|\mathbf{w}\|}$ – 间隔
-
 	- 最大化分子间隔 – SVM基本型：
 		$$
 		\min_{\mathbf{w},b}{\frac{\|\mathbf{w}\|^2}{2}}
@@ -437,7 +414,6 @@ doPerm <- function(perm,X,y){
 		$$
 
 - 对偶问题：在求解上式获得大间隔划分超平面模型时，对凸二次规划问题求解 – 现成计算包
-
 	- 使用 拉格朗日乘子 $\alpha_i\geq0$
 		- 拉格朗日函数 – 求偏导并另偏导为0 – 对偶问题
 		- 解出的拉格朗日乘子 – 训练样本$(\mathbf{x}_i,y_i)$ – 要满足KKT条件
@@ -445,7 +421,6 @@ doPerm <- function(perm,X,y){
 	- SMO算法：固定其他参数，仅优化两个参数 – 高效
 
 核函数：从原始空间映射到一个更高维的特征空间，使得样本在特征空间线性可分
-
 - 理论：如果原始空间是有限维(属性有限)，一定存在高维特征空间使样本可分
 - 特征向量：$\phi(\mathbf{x})$
 - 对偶问题 – 内积：$\phi(\mathbf{x})^T\phi(\mathbf{x})$ – 难以计算
@@ -460,7 +435,6 @@ doPerm <- function(perm,X,y){
 ### SVR
 
 所有样本点到这个超平面的距离最小，为得到一个  $f(\mathbf{x})=\mathbf{w}^T\mathbf{x}_i+b$  回归模型，使$f(x)$与$y$尽可能接近
-
 - 假设我们能够容忍预测值与真实输出之间有$\epsilon$的偏差，且仅当差别绝对值大于$\epsilon$时才计算
 - 考虑特征映射形式以及对偶问题，SVR公式可表示为：$f(\mathbf{x})=\sum_{i=1}^m(\widehat{\alpha}_i-\alpha_i)\kappa(\mathbf{x},\mathbf{x}_i)+b$
 
@@ -471,7 +445,6 @@ doPerm <- function(perm,X,y){
 反卷积：
 
 SVR：
-
 1. 自变量维度：签名矩阵的每个细胞类型
 2. 因变量：每个样本的总表达量
 3. 样本点：每个基因
@@ -560,7 +533,6 @@ make the scatterplot of predicted versus observed for each cell type.
  
 
  ## 展示
-
 1. CIBERSORTx开发自CIBERSORT。
 2. CIBERSORT算法在**反卷积算法的运用于细胞推断**这一领域具有重要的意义，它运用支持向量回归(SVR)得到回归模型：$f(\mathbf{x})=\mathbf{w}^T\mathbf{x}_i+b$，我们引用2015年发布的CIBERSORT的R包(v1.03)，
 	1. **CIBERSORT**
