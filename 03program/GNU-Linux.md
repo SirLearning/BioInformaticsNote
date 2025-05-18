@@ -285,6 +285,13 @@ Shared Object File (.so)
 - 动态链接库 (Dynamic Link Library, DLL) / 共享对象 (Shared Object, SO)：一种可由多个程序（进程）同时使用的目标文件
 	- “动态”：与静态库不同，共享对象亦可在运行时组装并加载到内存中
 
+## 程序运行
+
+Linux 进程内存
+- RSS：各进程正在使用的内存大小，包括其共享库所占内存
+	- 可以通过`ps`和`top`来进行查看
+- 其他还有 VSS, PSS, USS
+
 # awk工具
 
 awk：一种样式扫描与处理工具  
