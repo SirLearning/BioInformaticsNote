@@ -170,6 +170,12 @@ EBI：维护着世界上最全面的分子数据资源
 
 ## 基因结构
 
+## EggNOG
+
+网站：[EggNOG Database | Orthology predictions and functional annnotaion](http://eggnog5.embl.de/#/app/home)
+
+a hierarchical, functionally and phylogenetically annotated orthology resource based on 5090 organisms and 2502 viruses.
+
 ### 测序 – 注释
 
 注释 Annotation: 用计算机和实验的方法来标注基因组
