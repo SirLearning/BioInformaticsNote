@@ -393,6 +393,16 @@ Ensembl Genes: protein/mRNA + sequence assembly
 
 # Genome
 
+## 植物基因组资源与数据库​
+
+| ​数据库​            | ​特点​                  | ​链接​                             |
+| ---------------- | --------------------- | -------------------------------- |
+| ​Phytozome​      | 比较基因组学，整合112+物种基因家族   | https://phytozome.jgi.doe.gov    |
+| ​Ensembl Plants​ | 279+参考基因组，基因家族可视化     | http://plants.ensembl.org        |
+| ​Gramene​        | 作物比较基因组，泛基因组链接        | https://www.gramene.org          |
+| ​BRAD​           | 十字花科专用（拟南芥、油菜）        | http://brassicadb.cn             |
+| ​N3​             | 1,575物种基因组元数据，支持BLAST | http://ibi.zju.edu.cn/N3database |
+
 ## NCBI genome
 
 直接查询，dataset下载
