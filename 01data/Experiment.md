@@ -148,6 +148,16 @@ Oxford Nanopore Technologies: lon Torrent
 
 纳米孔技术
 
+## 简化基因组测序
+
+简化基因组测序 (Reduced-Representation Genome Sequencing, RRGS)：即对部分基因组进行序列测定
+- 它是指利用限制性内切酶对基因组DNA进行酶切，并对酶切片段进行高通量测序的技术
+- 代表方法：
+	- RAD-seq
+	- GBS
+	- CRoPS
+- 教程：[简化基因组的测序方法 - 简书](https://www.jianshu.com/p/29fa856b83c2)
+
 ## 应用：
 
 基因组学(genomics):
